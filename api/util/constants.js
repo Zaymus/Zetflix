@@ -1,10 +1,12 @@
 const dotenv = require("dotenv").config({
 	path:__dirname+'/./../../.env'
 });
+const env = process.env;
 
 const multer = require('multer');
 
-const env = process.env;
+var AWS = require('aws-sdk');
+AWS.config.update({region: 'us-east-1'});
 
 const userValidation = {
 	USERNAME_FORMAT: new RegExp(/^(?=.{3,20}$)(?![_-])(?!.*[_-]{2})[a-zA-Z0-9_-]+(?<![_-])$/),
@@ -46,10 +48,17 @@ const S3_FILE_TYPE = {
 	CONTENT: "content/",
 }
 
+const s3 = new AWS.S3({
+  apiVersion: 'latest',
+  accessKeyId: env.S3_ID,
+  secretAccessKey: env.S3_SECRET,
+});
+
 module.exports = {
 	env,
   userValidation,
   SERVER_STATUS,
   imageUpload,
 	S3_FILE_TYPE,
+	s3,
 }
