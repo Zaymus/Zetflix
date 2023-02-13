@@ -5,8 +5,6 @@ const isAuth = require('../middleware/is-auth');
 
 router.post("/create", usersController.postCreate);
 
-router.post("/login", usersController.postLogin);
-
 router.patch("/update", isAuth, usersController.patchUpdate);
 
 router.delete("/delete", isAuth, usersController.deleteUser);

@@ -7,8 +7,10 @@ const app = express();
 const apiRouter = express.Router();
 
 const userRouter = require('./routes/user');
+const authRouter = require('./routes/auth');
 
 apiRouter.use('/users', userRouter);
+apiRouter.use('/auth', authRouter);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());

@@ -1,8 +1,5 @@
 const User = require('../models/user');
-const JWTBlacklist = require('../models/JWTBlacklist');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { env } = require('../util/constants');
 
 exports.postCreate = async(req, res, next) => {
   const username = req.body.username;
@@ -59,45 +56,6 @@ exports.getById = async(req, res, next) => {
     }
 
     res.status(200).json(user);
-  } catch (err) {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
-  }
-}
-
-exports.postLogin = async (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-
-  try {
-    const user = await User.findOne({username: username});
-    if (!user) {
-      const error = new Error("Incorrect email/password, please Try again");
-      error.statusCode = 400;
-      next(error);
-    } else {
-      const result = await bcrypt.compare(password, user.password);
-      if (!result) {
-        const error = new Error("Incorrect email/password, please Try again");
-        error.statusCode = 400;
-        next(error);
-      } else {
-        const token = jwt.sign(
-          {
-            userId: user._id,
-            username: user.username,
-            email: user.email,
-            avatarURL: user.avatarURL,
-          },
-          env.JWT_SECRET,
-          {expiresIn: '1D'}
-        );
-
-        res.status(200).json({token: token, userId: user._id.toString()});
-      }
-    }
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
