@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const { env, userValidation } = require('../util/constants');
 
 const userSchema = new Schema({
-  avatarURL: {
+  avatarKey: {
     type: String,
     default: env.DEFAULT_AVATAR_KEY,
   },
