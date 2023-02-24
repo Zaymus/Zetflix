@@ -4,6 +4,7 @@ const dotenv = require("dotenv").config({
 const env = process.env;
 
 const multer = require('multer');
+const multerS3 = require('multer-s3');
 
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-east-1'});
@@ -19,14 +20,38 @@ SERVER_STATUS = {
 	UP: "up",
 };
 
-const fileStorage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, __dirname + "/../public/images/products");
-	},
-	filename: (req, file, cb) => {
-		console.log(req, file);
-		cb(null, file.originalname);
-	},
+const S3_FILE_TYPE = {
+	AVATAR: "avatars/",
+	CONTENT: "content/",
+}
+
+const s3 = new AWS.S3({
+  apiVersion: 'latest',
+  accessKeyId: env.S3_ID,
+  secretAccessKey: env.S3_SECRET,
+});
+
+const generateRandomString = (length=15)=>Math.random().toString(20).substring(2, length);
+
+// const fileStorage = multer.diskStorage({
+// 	destination: (req, file, cb) => {
+// 		cb(null, __dirname + "/../public");
+// 	},
+// 	filename: (req, file, cb) => {
+// 		console.log(req, file);
+// 		cb(null, file.originalname);
+// 	},
+// });
+
+const fileStorage = multerS3({
+	s3: s3,
+	bucket: env.S3_BUCKET_NAME,
+	key: function (req, file, cb) {
+		const fileName = "avatars/" + Date.now().toString() + "-" + generateRandomString();
+		const fileExt = "." + file.originalname.split('.').pop();
+		req.newAvatarKey = fileName + fileExt;
+		cb(null, fileName + fileExt);
+	}
 });
 
 const fileFilter = (req, file, cb) => {
@@ -41,19 +66,7 @@ const fileFilter = (req, file, cb) => {
 	}
 };
 
-const imageUpload = multer({ storage: fileStorage, fileFilter: fileFilter }).single("image");
-
-const S3_FILE_TYPE = {
-	AVATAR: "avatars/",
-	CONTENT: "content/",
-}
-
-const s3 = new AWS.S3({
-  apiVersion: 'latest',
-  accessKeyId: env.S3_ID,
-  secretAccessKey: env.S3_SECRET,
-});
-
+const imageUpload = multer({ storage: fileStorage, fileFilter: fileFilter }).single("avatar");
 module.exports = {
 	env,
   userValidation,

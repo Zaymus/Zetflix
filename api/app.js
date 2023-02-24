@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const { env } = require('./util/constants');
+const { env, imageUpload } = require('./util/constants');
 
 const app = express();
 const apiRouter = express.Router();
@@ -14,7 +14,7 @@ apiRouter.use('/auth', authRouter);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-// app.use(middleware);
+app.use(imageUpload);
 app.use('/api', apiRouter);
 
 app.use((error, req, res, next) => {
