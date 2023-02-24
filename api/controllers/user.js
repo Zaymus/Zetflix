@@ -78,6 +78,14 @@ exports.patchUpdate = async(req, res, next) => {
   };
 
   try {
+    const existingUser = await User.find({email: email});
+
+    if (!existingUser.length == 0) {
+      const error = new Error('Email already in use. Please use another one.');
+      error.statusCode = 400;
+      throw error;
+    }
+
     const result = await User.updateOne({_id: req.user.userId}, updateDoc);
     var message = "";
     if (!result.matchedCount) {
