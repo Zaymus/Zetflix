@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
+const { Readable } = require('stream');
+const { env, s3 } = require('../util/constants');
 
 exports.postCreate = async(req, res, next) => {
   const username = req.body.username;
@@ -109,6 +111,69 @@ exports.deleteUser = async(req, res, next) => {
     }
 
     res.status(200).json({message: "User has been successfully deleted."});
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+}
+
+exports.getAvatar = async(req, res, next) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await User.findById(userId);
+
+    if(!user) {
+      const error = new Error('Could not find user with given id.');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const avatarKey = user.avatarKey;
+    const params = {
+      Bucket: env.S3_BUCKET_NAME,
+      Key: avatarKey,
+    }
+    res.status(206);
+    const data = await s3.getObject(params).promise();
+    const stream = Readable.from(data.Body);
+    stream.pipe(res);
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+}
+
+exports.patchAvatar = async(req, res, next) => {
+  const userId = req.user.userId;
+  const newAvatarKey = req.newAvatarKey;
+
+  const updateDoc = {
+    $set: {
+      avatarKey: newAvatarKey,
+    }
+  }
+  
+  try {
+    const result = await User.updateOne({_id: userId}, updateDoc);
+  
+    if (!result.matchedCount) {
+      const error = new Error('Could not find user in database. Please try again later');
+      error.statusCode = 500;
+      throw error;
+    }
+
+    if (!result.modifiedCount) {
+      message = "User avatar has been saved.";
+    } else  {
+      message = "User avatar has been saved and updated.";
+    }
+
+    res.status(200).json({message});
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

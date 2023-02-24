@@ -9,6 +9,10 @@ router.patch("/update", isAuth, usersController.patchUpdate);
 
 router.delete("/delete", isAuth, usersController.deleteUser);
 
+router.patch("/avatar", isAuth, usersController.patchAvatar);
+
+router.get("/:userId/avatar", usersController.getAvatar);
+
 router.get("/:userId", usersController.getById);
 
 module.exports = router;
