@@ -30,13 +30,6 @@ const videoSchema = new Schema({
     required: true,
     minlength: 2,
   },
-  rating: {
-    type: Number,
-    required: true,
-    default: 0,
-    min: 0,
-    max: 5,
-  },
   uploadDate: {
     type: Date,
     required: true,
