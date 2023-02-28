@@ -1,26 +1,28 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const { env, imageUpload } = require('./util/constants');
+const { env } = require('./util/constants');
 
 const app = express();
 const apiRouter = express.Router();
 
 const userRouter = require('./routes/user');
+const videoRouter = require('./routes/video');
 const authRouter = require('./routes/auth');
 
 apiRouter.use('/users', userRouter);
+apiRouter.use('/video', videoRouter);
 apiRouter.use('/auth', authRouter);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(imageUpload);
 app.use('/api', apiRouter);
 
 app.use((error, req, res, next) => {
 	const status = error.statusCode || 500;
 	const message = error.message;
 	const data = error.data;
+	console.log(error);
 	res.status(status).json({ message: message, data: data });
 });
 
