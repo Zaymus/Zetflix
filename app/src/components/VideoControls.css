@@ -1,0 +1,54 @@
+.controls--container {
+	position: absolute;
+	background: linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 0.5) -100%,
+		rgba(0, 0, 0, 0) 50%,
+		rgba(0, 0, 0, 0.5) 200%
+	);
+	z-index: 10;
+	opacity: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	transition: opacity 300ms linear;
+	transition-delay: 1500ms;
+}
+
+.controls--container:hover {
+	opacity: 1;
+	transition: opacity 300ms linear;
+}
+
+.controls {
+	height: 15%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: #ffffff;
+}
+
+.controls--top {
+	font-size: 2vw;
+	letter-spacing: 2px;
+	justify-content: center;
+}
+
+.controls--icon {
+	font-size: 2vw;
+	z-index: 15;
+	transition: all ease-in-out 250ms;
+}
+
+.control--group {
+	margin: 0px 15px;
+	width: 30%;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.controls--icon:hover {
+	transform: scale(1.5);
+	cursor: pointer;
+}
