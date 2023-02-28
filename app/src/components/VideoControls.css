@@ -30,11 +30,13 @@
 }
 
 .controls--top {
+	font-size: 2vw;
+	letter-spacing: 2px;
 	justify-content: center;
 }
 
 .controls--icon {
-	height: 5%;
+	font-size: 2vw;
 	z-index: 15;
 	transition: all ease-in-out 250ms;
 }
