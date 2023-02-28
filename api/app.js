@@ -8,10 +8,12 @@ const apiRouter = express.Router();
 
 const userRouter = require('./routes/user');
 const videoRouter = require('./routes/video');
+const ratingRouter = require('./routes/rating');
 const authRouter = require('./routes/auth');
 
 apiRouter.use('/users', userRouter);
 apiRouter.use('/video', videoRouter);
+apiRouter.use('/rating', ratingRouter);
 apiRouter.use('/auth', authRouter);
 
 app.use(bodyParser.urlencoded({ extended: false }));
