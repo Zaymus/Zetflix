@@ -88,3 +88,33 @@ exports.streamVideo = async (req, res, next) => {
     next(err);
   }
 }
+
+exports.patchVideo = async (req, res, next) => {
+  const videoId = req.params.videoId;
+  const title = req.body.title;
+  const description = req.body.description;
+
+  const updateDoc = {
+    $set: {
+      title: title,
+      description: description,
+    },
+  }
+
+  try {
+    const result = await Video.updateOne({$and: [{_id: videoId}, {userId: req.user.userId}]}, updateDoc);
+
+    if (!result.matchedCount) {
+      const error = new Error('Could not find video');
+      error.statusCode = 500;
+      throw error;
+    }
+
+    res.status(200).json({message: "Changes have been successfully updated"});
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+}

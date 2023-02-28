@@ -1,13 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const videosController = require("../controllers/video");
+const videoController = require("../controllers/video");
 const isAuth = require('../middleware/is-auth');
 const videoUpload = require('../middleware/video');
 
-router.post("/create", isAuth, videoUpload, videosController.postCreate);
+router.post("/create", isAuth, videoUpload, videoController.postCreate);
 
-router.get("/all", videosController.getVideos);
+router.get("/all", videoController.getVideos);
 
-router.get("/:videoId", videosController.streamVideo);
+router.get("/:videoId", videoController.streamVideo);
+
+router.patch("/:videoId", isAuth, videoController.patchVideo);
 
 module.exports = router;
