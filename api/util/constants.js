@@ -30,6 +30,11 @@ const s3 = new AWS.S3({
 
 const generateRandomString = (length=15)=>Math.random().toString(20).substring(2, length);
 
+const commentRatingTypes = {
+	LIKE: "like",
+	DISLIKE: "dislike",
+}
+
 module.exports = {
 	env,
   userValidation,
@@ -37,4 +42,5 @@ module.exports = {
 	S3_FILE_TYPE,
 	s3,
 	generateRandomString,
+	commentRatingTypes,
 }

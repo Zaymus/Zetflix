@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { env } = require('../util/constants');
 
 const creatorSchema = new Schema({
   avatarKey: {
@@ -38,12 +39,12 @@ const commentSchema = new Schema({
     min: 0,
   },
   videoId: {
-    type: ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Videos",
     required: true,
   },
   parentCommentId: {
-    type: ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Comments",
     required: false,
   }
