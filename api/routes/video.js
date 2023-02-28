@@ -12,4 +12,6 @@ router.get("/:videoId", videoController.streamVideo);
 
 router.patch("/:videoId", isAuth, videoController.patchVideo);
 
+router.delete("/:videoId", isAuth, videoController.deleteVideo);
+
 module.exports = router;

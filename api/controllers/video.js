@@ -1,7 +1,6 @@
 const Video = require('../models/video');
 const { env, s3 } = require('../util/constants');
 
-
 exports.postCreate = async (req, res, next) => {
   const videoKey = req.videoKey;
   const title = req.body.title;
@@ -111,6 +110,35 @@ exports.patchVideo = async (req, res, next) => {
     }
 
     res.status(200).json({message: "Changes have been successfully updated"});
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+}
+
+exports.deleteVideo = async (req, res, next) => {
+  const videoId = req.params.videoId;
+  const userId = req.user.userId;
+
+  try {
+    const result = await Video.deleteOne({$and: [{_id: videoId}, {'creator.userId': userId}]});
+
+    if(!result.deletedCount) {
+      const video = await Video.findById(videoId);
+      if (!video) {
+        const error = new Error('Could not find video');
+        error.statusCode = 404;
+        throw error
+      }
+
+      const error = new Error('Only video creator can delete this video');
+      error.statusCode = 400;
+      throw error
+    }
+
+    res.status(200).json({message: "Video has been successfully deleted."});
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
