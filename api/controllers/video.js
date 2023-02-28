@@ -1,6 +1,6 @@
 const Video = require('../models/video');
-const { Readable } = require('stream');
 const { env, s3 } = require('../util/constants');
+
 
 exports.postCreate = async (req, res, next) => {
   const videoKey = req.videoKey;
@@ -59,33 +59,28 @@ exports.streamVideo = async (req, res, next) => {
       range = 'bytes=0-';
     }
 
-    // const videoSize = data.ContentLength;
+    const bucketParams = {
+      Bucket: env.S3_BUCKET_NAME,
+      Key: video.videoKey,
+    };
 
-    const CHUNK_SIZE = 10 ** 6; // 1MB
+    const metadata = await s3.headObject(bucketParams).promise();
+
+    const videoSize = metadata.ContentLength;
+    var CHUNK_SIZE = 10 ** 6; // 1MB
     const start = Number(range.replace(/\D/g, ''));
-    const end = start + CHUNK_SIZE;
-    console.log(start, end);
+    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
     const contentLength = end - start + 1;
     const headers = {
-      'Content-Range': `bytes ${start}-${end}`,
+      'Content-Range': `bytes ${start}-${end}/${videoSize}`,
       'Accept-Ranges': 'bytes',
       'Content-Length': contentLength,
       'Content-Type': 'video/mp4',
     };
 
+    bucketParams.Range = `bytes=${start}-${end}`;
     res.writeHead(206, headers);
-
-    const params = {
-      Bucket: env.S3_BUCKET_NAME,
-      Key: video.videoKey,
-      Range: `bytes=${start}-${end}`
-    }
-    
-    const data = await s3.getObject(params).promise();
-    console.log(data);
-    const stream = Readable.from(data.Body);
-    stream.pipe(res);
-
+    s3.getObject(bucketParams).createReadStream().pipe(res);
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
