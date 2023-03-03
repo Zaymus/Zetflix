@@ -1,9 +1,9 @@
 import "./VideoPlayer.css";
 import VideoControls from "./VideoControls";
 import React from "react";
-import video from "../videos/Kassadin_Gaming.mp4";
+// import video from "../videos/Kassadin_Gaming.mp4";
 
-const VideoPlayer = () => {
+const VideoPlayer = (props) => {
 	const videoRef = React.useRef();
 	const controlsRef = React.useRef();
 
@@ -19,8 +19,8 @@ const VideoPlayer = () => {
 
 	return (
 		<div className="video--container">
-			<video id="video-player" ref={videoRef}>
-				<source src={video} type="video/mp4" />
+			<video id="video-player" ref={videoRef} autoPlay>
+				<source src={props.videoSource} type="video/mp4" />
 			</video>
 			<VideoControls ref={controlsRef} />
 		</div>
