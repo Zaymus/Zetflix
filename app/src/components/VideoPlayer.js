@@ -19,7 +19,7 @@ const VideoPlayer = (props) => {
 
 	return (
 		<div className="video--container">
-			<video id="video-player" ref={videoRef} autoPlay>
+			<video id="video-player" ref={videoRef} autoPlay muted>
 				<source src={props.videoSource} type="video/mp4" />
 			</video>
 			<VideoControls ref={controlsRef} />
