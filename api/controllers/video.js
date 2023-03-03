@@ -123,6 +123,13 @@ exports.deleteVideo = async (req, res, next) => {
   const userId = req.user.userId;
 
   try {
+    const video = await Video.findById(videoId);
+
+    const params = {
+      Bucket: env.S3_BUCKET_NAME,
+      Key: video.videoKey,
+    };
+
     const result = await Video.deleteOne({$and: [{_id: videoId}, {'creator.userId': userId}]});
 
     if(!result.deletedCount) {
@@ -138,7 +145,20 @@ exports.deleteVideo = async (req, res, next) => {
       throw error
     }
 
-    res.status(200).json({message: "Video has been successfully deleted."});
+    await s3.deleteObject(params).promise();
+    
+    try {
+      await s3.headObject(params).promise();
+      const doc = new Video(video);
+      doc.save();
+      res.status(500).json({message: "Unable to delete video, please try again."})
+    } catch (error) {
+      if (error.statusCode == 404) {
+        res.status(200).json({message: "Video has been successfully deleted."});
+      } else {
+        throw error;
+      }
+    }
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
