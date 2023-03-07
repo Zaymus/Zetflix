@@ -57,6 +57,12 @@ mongoose
 				client.leave(data.roomId);
 				io.in(data.roomId).emit('message', `${user.username}, has left the theatre room.`);
 			});
+
+			client.on('room.chat', async (data) => {
+				const user = await Users.findById(data.userId);
+				
+				io.in(data.roomId).emit('message', `${user.username}: ${data.message}`);
+			});
 		});
 		console.log(`Listening on port ${env.API_PORT}!`);
 	})
