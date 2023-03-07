@@ -1,6 +1,6 @@
 const TheatreRoom = require('../models/theatreRoom');
 const Video = require('../models/video');
-const axios = require('axios');
+// const axios = require('axios');
 const { env } = require('../util/constants');
 
 exports.create = async (req, res, next) => {
@@ -189,7 +189,7 @@ exports.startRoom = async (req, res, next) => {
       throw error;
     }
 
-    const result = await axios.get(`${env.BASE_URL}/api/video/${room.videoId}`);
+    // const result = await axios.get(`${env.BASE_URL}/api/video/${room.videoId}`);
 
     console.log(result);
     
