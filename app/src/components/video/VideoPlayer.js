@@ -19,7 +19,7 @@ const VideoPlayer = (props) => {
 
 	return (
 		<div className="video--container">
-			<video id="video-player" ref={videoRef} onWaiting={() => {setLoading(true);}} onCanPlay={() => {setLoading(true);}}>
+			<video id="video-player" ref={videoRef} onWaiting={() => {setLoading(true);}} onCanPlay={() => {setLoading(false);}}>
 				<source src={props.videoSource} type="video/mp4" />
 			</video>
 			<VideoControls ref={controlsRef} videoRef={videoRef} isLoading={loading}/>
