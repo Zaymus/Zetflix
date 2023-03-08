@@ -19,10 +19,10 @@ const VideoPlayer = (props) => {
 
 	return (
 		<div className="video--container">
-			<video id="video-player" ref={videoRef} autoPlay muted>
+			<video id="video-player" ref={videoRef}>
 				<source src={props.videoSource} type="video/mp4" />
 			</video>
-			<VideoControls ref={controlsRef} />
+			<VideoControls ref={controlsRef} videoRef={videoRef} />
 		</div>
 	);
 };
