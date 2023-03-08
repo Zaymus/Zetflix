@@ -48,6 +48,13 @@
 	justify-content: space-evenly;
 }
 
+.control--group:first-of-type {
+	margin: 0px 15px;
+	min-width: 40%;
+	display: flex;
+	justify-content: space-evenly;
+}
+
 .controls--icon:hover {
 	transform: scale(1.5);
 	cursor: pointer;
