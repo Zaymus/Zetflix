@@ -6,11 +6,30 @@ const VideoPlayer = (props) => {
 	const videoRef = React.useRef();
 	const controlsRef = React.useRef();
 	const [loading, setLoading] = useState('');
+	const [times, setTimes] = useState({watched: 0, buffered: 0});
 
 	const handleResize = () => {
 		controlsRef.current.style.height = videoRef.current.offsetHeight + "px";
 		controlsRef.current.style.width = videoRef.current.offsetWidth + "px";
 	};
+
+	const timeUpdateHandler = (event) => {
+		const watchPercent = (event.target.currentTime / event.target.duration) * 100;
+		const buffered = (event.target.buffered.end(0) / event.target.duration) * 100;
+		setTimes({watched: watchPercent, buffered: buffered});
+	}
+
+	const seekHandler = (percentage) => {
+		const video = document.querySelector("#video-player");
+		const newTime = percentage * video.duration;
+		video.currentTime = newTime;
+		setTimes((prevState) => {
+			return {
+				...prevState,
+				watched: newTime,
+			};
+		});
+	}
 
 	React.useEffect(() => {
 		window.addEventListener("load", handleResize, false);
@@ -19,10 +38,22 @@ const VideoPlayer = (props) => {
 
 	return (
 		<div className="video--container">
-			<video id="video-player" ref={videoRef} onWaiting={() => {setLoading(true);}} onCanPlay={() => {setLoading(false);}}>
+			<video 
+				id="video-player" 
+				ref={videoRef} 
+				onWaiting={() => {setLoading(true);}} 
+				onCanPlay={() => {setLoading(false);}}
+				onTimeUpdate={timeUpdateHandler}
+			>
 				<source src={props.videoSource} type="video/mp4" />
 			</video>
-			<VideoControls ref={controlsRef} videoRef={videoRef} isLoading={loading}/>
+			<VideoControls 
+				ref={controlsRef} 
+				videoRef={videoRef} 
+				isLoading={loading}
+				timeData={times}
+				onSeek={seekHandler}
+			/>
 		</div>
 	);
 };

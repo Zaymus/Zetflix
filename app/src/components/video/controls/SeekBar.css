@@ -1,0 +1,26 @@
+.seekbar--container {
+  width: 90%;
+  cursor: pointer;
+  height: 5px;
+  margin: auto;
+  margin-bottom: 20px;
+  outline: thin solid lightgray;
+  overflow: hidden;
+  position: relative;
+}
+
+.seekbar--container .watched {
+  background-color: #ff9d00;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.seekbar--container .buffered {
+  background-color: #aeaeae;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}

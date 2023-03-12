@@ -21,7 +21,6 @@
 }
 
 .controls {
-	height: 15%;
 	width: 100%;
 	display: flex;
 	align-items: center;
@@ -50,7 +49,8 @@
 
 .control--group:first-of-type {
 	margin: 0px 15px;
-	min-width: 40%;
+	width: 100%;
+	max-width: 40%;
 	display: flex;
 	justify-content: space-evenly;
 }
@@ -58,4 +58,17 @@
 .controls--icon:hover {
 	transform: scale(1.5);
 	cursor: pointer;
+}
+
+.bottom-controls {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.bottom-controls--wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
