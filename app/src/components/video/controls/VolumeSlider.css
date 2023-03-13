@@ -1,0 +1,28 @@
+.slider--container {
+  cursor: pointer;
+  position: relative;
+  bottom: 50%;
+  left: 50%;
+  background-color: white;
+  width: 100px;
+  height: 5px;
+  opacity: 0;
+  z-index: -20;
+  transition: all 250ms ease-in-out;
+}
+
+.slider-value {
+  cursor: pointer;
+  position: absolute;
+  background-color: #ff9d00;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0px;
+  transition: all 250ms ease-in-out;
+}
+
+.slider--container:hover,
+.slider-value:hover {
+  height: 10px;
+}

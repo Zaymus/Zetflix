@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import VolumeSlider from './VolumeSlider';
 import './Volume.css';
 
 const Volume = (props) => {
@@ -27,16 +28,6 @@ const Volume = (props) => {
     }
   }
 
-  const sliderChangeHandler = (event) => {
-    if(props.videoRef.current.muted) {
-      props.videoRef.current.muted = false;
-    }
-    setVolume(event.target.value);
-    props.videoRef.current.volume = volume;
-    
-    changeIcon();
-  }
-
   return (
     <div className='volume'>
       <i 
@@ -44,15 +35,13 @@ const Volume = (props) => {
         className={"fa-solid controls--icon " + volumeIcon}
         onClick={volumeClickHandler}
       ></i>
-      <input 
-        type="range" 
-        min="0" 
-        max="1" 
-        step="0.05" 
-        value={volume} 
-        onChange={sliderChangeHandler}/>
+      <VolumeSlider 
+        videoRef={props.videoRef}
+        volume={volume}
+        setVolume={setVolume}
+        changeIcon={changeIcon}
+      />
     </div>
-
   )
 }
 
