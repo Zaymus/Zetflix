@@ -4,9 +4,9 @@
   height: 5px;
   margin: auto;
   margin-bottom: 20px;
-  outline: thin solid lightgray;
   overflow: hidden;
   position: relative;
+  background-color: hsl(0, 0%, 40%);
 }
 
 .seekbar--container .watched {
