@@ -1,5 +1,5 @@
 import React from 'react';
-import PlaybackForm from './PlaybackForm';
+import PlaybackModalList from './PlaybackModalList';
 import './PlaybackModal.css';
 
 const PlaybackModal = (props) => {
@@ -16,7 +16,7 @@ const PlaybackModal = (props) => {
       onMouseLeave={playBackMouseLeaveHandler}
     >
       <p>Playback Speed</p>
-      <PlaybackForm 
+      <PlaybackModalList 
         videoRef={props.videoRef} 
         selected={props.selected} 
         setSelected={props.setSelected}
