@@ -8,7 +8,7 @@ const SecondaryControls = (props) => {
   return (
     <div className="control--group">
       <Captions />
-      <PlayBackSpeed />
+      <PlayBackSpeed bottomControlRef={props.bottomControlRef} videoRef={props.videoRef}/>
       <FullScreen />
     </div>
   );

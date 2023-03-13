@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PlaybackModal from './PlaybackModal';
 
 const PlayBackSpeed = (props) => {
+  const [showSpeeds, setShowSpeeds] = useState(false);
+  const [selected, setSelected] = useState("1");
+
+  const speedClickHandler = () => {
+    setShowSpeeds(!showSpeeds);
+  }
 
   return (
-    <i className="fa-solid fa-gauge-high controls--icon"></i>
+    <div>
+      { showSpeeds && <PlaybackModal bottomControlRef={props.bottomControlRef} showSpeeds={setShowSpeeds} videoRef={props.videoRef} selected={selected} setSelected={setSelected}/>}
+      <i 
+        className="fa-solid fa-gauge-high controls--icon" 
+        onClick={speedClickHandler}
+      ></i>
+    </div>
   )
 }
 

@@ -7,6 +7,8 @@ import SeekBar from "./controls/SeekBar";
 
 const VideoControls = (props, ref) => {
 
+	const bottomControlRef = React.useRef();
+
 	return (
 		<div className="controls--container" ref={ref} style={props.isLoading ? {opacity: 1} : {}}>
 			<div className="controls controls--top">
@@ -14,11 +16,11 @@ const VideoControls = (props, ref) => {
 			</div>
 			{props.isLoading ? <Spinner /> : null}
 			<div className="controls">
-				<div className="bottom-controls">
+				<div className="bottom-controls" ref={bottomControlRef}>
 					<SeekBar videoRef={props.videoRef} timeData={props.timeData} onSeek={props.onSeek}/>
 					<div className="bottom-controls--wrapper">
 						<PrimaryControls videoRef={props.videoRef} />
-						<SecondaryControls videoRef={props.videoRef} />
+						<SecondaryControls videoRef={props.videoRef} bottomControlRef={bottomControlRef} />
 					</div>
 				</div>
 			</div>

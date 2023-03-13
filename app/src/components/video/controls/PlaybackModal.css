@@ -1,0 +1,10 @@
+.playbackModal--container {
+  background-color: hsla(0, 0%, 20%, 0.6);
+  padding: 10px;
+  position: absolute;
+  border-radius: 10px;
+}
+
+.playbackModal--container p {
+  margin-top: 0;
+}
