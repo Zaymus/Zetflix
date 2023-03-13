@@ -6,14 +6,15 @@ const Volume = (props) => {
   const [volume, setVolume] = useState(1);
   const [volumeIcon, setVolumeIcon] = useState("fa-volume-high");
 
-  const changeIcon = () => {
-    if (volume <= 0.05) {
+  const changeIcon = (newVolume) => {
+    if (newVolume <= 0.05) {
+      setVolume(0);
       setVolumeIcon("fa-volume-xmark");
-    } else if (volume < 0.4 && volume > 0.05) {
+    } else if (newVolume < 0.4 && volume > 0.05) {
       setVolumeIcon("fa-volume-off");
-    } else if (volume < 0.7) {
+    } else if (newVolume < 0.7) {
       setVolumeIcon("fa-volume-low");
-    } else if (volume <= 1) {
+    } else if (newVolume <= 1) {
       setVolumeIcon("fa-volume-high");
     }
   }
@@ -21,7 +22,7 @@ const Volume = (props) => {
   const volumeClickHandler = () => {
     if (props.videoRef.current.muted) {
       props.videoRef.current.muted = false;
-      changeIcon();
+      changeIcon(volume);
     } else {
       props.videoRef.current.muted = true;
       setVolumeIcon("fa-volume-xmark");
