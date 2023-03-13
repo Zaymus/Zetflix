@@ -14,8 +14,9 @@ const VideoPlayer = (props) => {
 	};
 
 	const timeUpdateHandler = (event) => {
+		const buff = event.target.buffered;
 		const watchPercent = (event.target.currentTime / event.target.duration) * 100;
-		const buffered = (event.target.buffered.end(0) / event.target.duration) * 100;
+		const buffered = (buff.end(buff.length - 2 || 0) / event.target.duration) * 100;
 		setTimes({watched: watchPercent, buffered: buffered});
 	}
 
