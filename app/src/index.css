@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap");
 
+:root {
+	--clr-main-accent: hsl(37, 100%, 50%);
+	--clr-main-bg: hsl(0, 0%, 25%);
+	--clr-bg-100: hsl(0, 0%, 10%);
+	--clr-main-control: hsl(0, 0%, 100%);
+	--clr-control-grey-700: hsl(0, 0%, 70%);
+	--clr-control-grey: hsl(0, 0%, 40%);
+	--clr-bg-modal: hsla(0, 0%, 20%, 0.6);
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -10,5 +20,5 @@ html {
 
 body {
 	margin: 0;
-	background-color: #3f3f3f;
+	background-color: var(--clr-main-bg);
 }

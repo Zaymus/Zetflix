@@ -6,11 +6,11 @@
   margin-bottom: 20px;
   overflow: hidden;
   position: relative;
-  background-color: hsl(0, 0%, 40%);
+  background-color: var(--clr-control-grey);
 }
 
 .seekbar--container .watched {
-  background-color: #ff9d00;
+  background-color: var(--clr-main-accent);
   position: absolute;
   top: 0;
   left: 0;
@@ -18,7 +18,7 @@
 }
 
 .seekbar--container .buffered {
-  background-color: #aeaeae;
+  background-color: var(--clr-control-grey-700);
   position: absolute;
   top: 0;
   left: 0;
