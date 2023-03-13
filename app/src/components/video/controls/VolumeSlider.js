@@ -16,7 +16,7 @@ const VolumeSlider = (props) => {
     if(props.videoRef.current.muted) {
       props.videoRef.current.muted = false;
     }
-    console.log(percentage);
+
     props.setVolume(percentage);
     props.videoRef.current.volume = percentage;
     
