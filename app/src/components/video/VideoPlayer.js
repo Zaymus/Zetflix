@@ -9,8 +9,8 @@ const VideoPlayer = (props) => {
 	const [times, setTimes] = useState({watched: 0, buffered: 0});
 
 	const handleResize = () => {
-		controlsRef.current.style.height = videoRef.current.offsetHeight + "px";
-		controlsRef.current.style.width = videoRef.current.offsetWidth + "px";
+		controlsRef.current.style.height = `calc(${videoRef.current.offsetHeight}px + 2rem)`;
+		controlsRef.current.style.width = `calc(${videoRef.current.offsetWidth}px + 2rem)`;
 	};
 
 	const timeUpdateHandler = (event) => {

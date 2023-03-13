@@ -2,9 +2,9 @@
   cursor: pointer;
   position: relative;
   bottom: 50%;
-  left: 50%;
+  left: 3.5vw;
   background-color: var(--clr-control-grey);
-  width: 100px;
+  width: 6vw;
   height: 5px;
   opacity: 0;
   z-index: -20;
@@ -22,7 +22,6 @@
   transition: all 250ms ease-in-out;
 }
 
-.slider--container:hover,
-.slider-value:hover {
-  height: 10px;
+.slider--container:hover {
+  transform: scaleY(1.7);
 }

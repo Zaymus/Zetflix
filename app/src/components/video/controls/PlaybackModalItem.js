@@ -4,7 +4,7 @@ import "./PlaybackModalItem.css";
 const PlaybackModalItem = (props) => {
   return (
     <div data-value={props.value} className={props.selected ? 'selected' : ''} onClick={props.onClick}>
-        <svg>
+        <svg viewBox='0 0 16 16'>
           <circle 
             cx="8"
             cy="8"

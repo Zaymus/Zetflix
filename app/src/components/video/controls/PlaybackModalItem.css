@@ -15,8 +15,8 @@
 .playback-speeds svg {
   display: inline;
   position: relative;
-  top: 2px;
-  width: 16px;
-  height: 16px;
-  margin-right: 10px;
+  top: calc(1.1vw / 8);
+  width: 1.3vw;
+  height: 1.3vw;
+  margin-right: 1vw;
 }

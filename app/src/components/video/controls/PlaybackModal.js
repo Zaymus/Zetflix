@@ -12,7 +12,7 @@ const PlaybackModal = (props) => {
   return (
     <div 
       className='playbackModal--container' 
-      style={{bottom: bottomControlRef.height + 10 + "px" }}
+      style={{bottom: bottomControlRef.height + 30 + "px" }}
       onMouseLeave={playBackMouseLeaveHandler}
     >
       <p>Playback Speed</p>
