@@ -1,0 +1,13 @@
+.captionsModal--container {
+  background-color: var(--clr-bg-modal);
+  padding: 10px;
+  position: absolute;
+  right: 5.75vw;
+  border-radius: 10px;
+  font-size: 1.5vw;
+  z-index: 30;
+}
+
+.captionsModal--container p {
+  margin-top: 0;
+}

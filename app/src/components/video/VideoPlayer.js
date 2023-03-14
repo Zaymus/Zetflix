@@ -60,6 +60,9 @@ const VideoPlayer = (props) => {
 				onTimeUpdate={timeUpdateHandler}
 			>
 				<source src={props.videoSource} type="video/mp4" />
+				{props.captions.length && props.captions.map((caption) => {
+					return <track kind="subtitles" label={caption.label} data-key={caption.captionKey} key={caption._id}/>
+				})}
 			</video>
 			<VideoControls 
 				ref={controlsRef} 

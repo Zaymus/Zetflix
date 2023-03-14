@@ -1,0 +1,22 @@
+.caption-languages div {
+  cursor: pointer;
+  opacity: 0.8;
+  z-index: 25;
+}
+
+.caption-languages div:hover {
+  opacity: 1;
+}
+
+.selected span, .selected svg{
+  opacity: 1;
+}
+
+.caption-languages svg {
+  display: inline;
+  position: relative;
+  top: calc(1.1vw / 8);
+  width: 1.3vw;
+  height: 1.3vw;
+  margin-right: 1vw;
+}

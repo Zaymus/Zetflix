@@ -22,3 +22,8 @@ body {
 	margin: 0;
 	background-color: var(--clr-main-bg);
 }
+
+
+::cue {
+	background-color: hsla(0, 0%, 20%, 0.6);
+}
