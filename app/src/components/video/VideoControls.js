@@ -4,6 +4,7 @@ import Spinner from "../ui/Spinner";
 import PrimaryControls from "./controls/PrimaryControls";
 import SecondaryControls from "./controls/SecondaryControls";
 import SeekBar from "./controls/SeekBar";
+import SeekBarTimeData from "./controls/SeekBarTimeData";
 
 const VideoControls = (props, ref) => {
 
@@ -17,6 +18,7 @@ const VideoControls = (props, ref) => {
 			{props.isLoading ? <Spinner /> : null}
 			<div className="controls">
 				<div className="bottom-controls" ref={bottomControlRef}>
+					<SeekBarTimeData timeData={props.timeData}/>
 					<SeekBar videoRef={props.videoRef} timeData={props.timeData} onSeek={props.onSeek}/>
 					<div className="bottom-controls--wrapper">
 						<PrimaryControls videoRef={props.videoRef} />

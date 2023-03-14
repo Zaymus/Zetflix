@@ -1,0 +1,12 @@
+.timestamp--container {
+  z-index: 20;
+  display: flex;
+  width: 85%;
+  justify-content: space-between;
+  position: relative;
+  margin: auto;
+}
+
+.timestamp--container p {
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
