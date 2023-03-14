@@ -27,6 +27,7 @@
 	align-items: center;
 	justify-content: space-between;
 	color: var(--clr-main-control);
+	text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 
 .controls--top {
