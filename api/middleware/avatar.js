@@ -1,6 +1,6 @@
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const { s3, env, generateRandomString } = require('../util/constants');
+const { s3, S3_FILE_TYPE, env, generateRandomString } = require('../util/constants');
 
 const avatarFileStorage = multerS3({
 	s3: s3,
