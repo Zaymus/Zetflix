@@ -8,6 +8,8 @@ router.post("/create", isAuth, videoUpload, videoController.postCreate);
 
 router.get("/all", videoController.getVideos);
 
+router.get("/data/:videoId", videoController.getVideo);
+
 router.get("/:videoId", videoController.streamVideo);
 
 router.patch("/:videoId", isAuth, videoController.patchVideo);

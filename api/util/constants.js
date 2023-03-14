@@ -20,6 +20,7 @@ SERVER_STATUS = {
 const S3_FILE_TYPE = {
 	AVATAR: "avatars/",
 	CONTENT: "content/",
+	CAPTION: "caption/",
 }
 
 const s3 = new AWS.S3({

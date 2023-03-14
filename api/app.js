@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const { env } = require('./util/constants');
 
 const app = express();
@@ -11,15 +12,18 @@ const videoRouter = require('./routes/video');
 const ratingRouter = require('./routes/rating');
 const commentRouter = require('./routes/comment');
 const theatreRoomRouter = require('./routes/theatreRoom');
+const captionRouter = require('./routes/caption');
 const authRouter = require('./routes/auth');
 
 const Users = require('./models/user');
 
+apiRouter.use(cors());
 apiRouter.use('/users', userRouter);
 apiRouter.use('/video', videoRouter);
 apiRouter.use('/rating', ratingRouter);
 apiRouter.use('/comment', commentRouter);
 apiRouter.use('/theatre', theatreRoomRouter);
+apiRouter.use('/caption', captionRouter);
 apiRouter.use('/auth', authRouter);
 
 app.use(bodyParser.urlencoded({ extended: false }));
