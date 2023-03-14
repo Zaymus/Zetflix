@@ -7,6 +7,7 @@ const VideoPlayer = (props) => {
 	const controlsRef = React.useRef();
 	const [loading, setLoading] = useState('');
 	const [times, setTimes] = useState({watched: 0, buffered: 0});
+	const [fullscreen, setFullScreen] = useState(false);
 
 	const handleResize = () => {
 		controlsRef.current.style.height = `calc(${videoRef.current.offsetHeight}px + 2rem)`;
@@ -54,6 +55,7 @@ const VideoPlayer = (props) => {
 				isLoading={loading}
 				timeData={times}
 				onSeek={seekHandler}
+				fullscreenControls={{fullscreen: fullscreen, setFullScreen: setFullScreen}}
 			/>
 		</div>
 	);
