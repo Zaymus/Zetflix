@@ -13,7 +13,7 @@ const VideoControls = (props, ref) => {
 	return (
 		<div className="controls--container" ref={ref} style={props.isLoading ? {opacity: 1} : {}}>
 			<div className="controls controls--top">
-				<p>title</p>
+				<p>{props.videoData.title || ""}</p>
 			</div>
 			{props.isLoading ? <Spinner /> : null}
 			<div className="controls">

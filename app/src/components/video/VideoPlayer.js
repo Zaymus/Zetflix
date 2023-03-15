@@ -8,6 +8,7 @@ const VideoPlayer = (props) => {
 	const [loading, setLoading] = useState('');
 	const [times, setTimes] = useState({watched: 0, buffered: 0, watchTime: 0, totalTime: 0});
 	const [fullscreen, setFullScreen] = useState(false);
+	const [videoData, setVideoData] = useState({title: ""});
 
 	const handleResize = () => {
 		controlsRef.current.style.height = `calc(${videoRef.current.offsetHeight}px + 2rem)`;
@@ -45,9 +46,28 @@ const VideoPlayer = (props) => {
 		setTimes({...times, totalTime: event.target.duration});
 	}
 
+	const getVideoData = () => {
+		fetch('http://localhost:9000/api/video/data/63fd57ad00f5e1f9186f4daf', {
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			}
+		})
+		.then(response => {
+			return response.json();
+		})
+		.then(jsonData => {
+			setVideoData(jsonData);
+		})
+		.catch(err => {
+			console.log(err);
+		});
+	}
+
 	React.useEffect(() => {
 		window.addEventListener("load", handleResize, false);
 		window.addEventListener("resize", handleResize, false);
+		getVideoData();
 	}, []);
 
 	return (
@@ -59,7 +79,7 @@ const VideoPlayer = (props) => {
 				onCanPlay={canPlayHandler}
 				onTimeUpdate={timeUpdateHandler}
 			>
-				<source src={props.videoSource} type="video/mp4" />
+				<source src={`http://localhost:9000/api/video/${props.videoId}`} type="video/mp4" />
 				{props.captions.length && props.captions.map((caption) => {
 					return <track kind="subtitles" label={caption.label} data-key={caption.captionKey} key={caption._id}/>
 				})}
@@ -71,6 +91,7 @@ const VideoPlayer = (props) => {
 				timeData={times}
 				onSeek={seekHandler}
 				fullscreenControls={{fullscreen: fullscreen, setFullScreen: setFullScreen}}
+				videoData={videoData}
 			/>
 		</div>
 	);
