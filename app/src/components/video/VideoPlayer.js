@@ -1,5 +1,5 @@
 import "./VideoPlayer.css";
-import VideoControls from "./VideoControls";
+import VideoControls from "./controls/VideoControls";
 import React, { useState } from "react";
 
 const VideoPlayer = (props) => {
