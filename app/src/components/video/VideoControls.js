@@ -1,10 +1,10 @@
 import "./VideoControls.css";
 import React, { forwardRef } from "react";
 import Spinner from "../ui/Spinner";
-import PrimaryControls from "./controls/PrimaryControls";
-import SecondaryControls from "./controls/SecondaryControls";
-import SeekBar from "./controls/SeekBar";
-import SeekBarTimeData from "./controls/SeekBarTimeData";
+import PrimaryControls from "./controls/PrimaryControls/PrimaryControls";
+import SecondaryControls from "./controls/SecondaryControls/SecondaryControls";
+import SeekBar from "./controls/PrimaryControls/SeekBar/SeekBar";
+import SeekBarTimeData from "./controls/PrimaryControls/SeekBar/SeekBarTimeData";
 
 const VideoControls = (props, ref) => {
 

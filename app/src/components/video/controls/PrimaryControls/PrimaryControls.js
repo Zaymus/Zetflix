@@ -2,7 +2,7 @@ import React from 'react';
 import PlayPause from "./PlayPause";
 import RewindSeek from "./RewindSeek";
 import ForwardSeek from "./ForwardSeek";
-import Volume from "./Volume";
+import Volume from "./Volume/Volume";
 
 const PrimaryControls = (props) => {
 

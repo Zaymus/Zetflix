@@ -1,6 +1,6 @@
 import React from 'react';
-import Captions from "./Captions";
-import PlayBackSpeed from "./PlayBackSpeed";
+import Captions from "./Captions/Captions";
+import PlayBackSpeed from "./Playback/PlayBackSpeed";
 import FullScreen from "./FullScreen";
 
 const SecondaryControls = (props) => {
