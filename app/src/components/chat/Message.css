@@ -1,0 +1,25 @@
+.message--container {
+  min-width: 30%;
+  width: fit-content;
+  max-width: 80%;
+  padding: 5px;
+  background-color: white;
+  margin: 20px 0px;
+  border-radius: 10px 10px 10px 0px;
+}
+
+.from-me {
+  border-radius: 10px 10px 0px 10px;
+  margin-left: auto;
+  text-align: end;
+  background-color: var(--clr-main-accent);
+}
+
+.message--container h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.message--container p {
+  margin: 5px 0px;
+}
