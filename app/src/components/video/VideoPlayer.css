@@ -10,6 +10,7 @@
 	width: 100%;
 	height: 80vh;
 	max-width: 95%;
+	border-radius: 10px;
 }
 
 .video--container #video-player {
@@ -18,4 +19,8 @@
 	width: 100%;
 	height: auto;
 	max-height: 100%;
+}
+
+.room--container .video--container {
+	max-width: 100%;
 }
