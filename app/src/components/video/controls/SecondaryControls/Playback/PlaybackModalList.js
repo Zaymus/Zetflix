@@ -4,8 +4,8 @@ import PlaybackModalItem from './PlaybackModalItem';
 const PlaybackForm = (props) => {
   const speedClickHandler = (event) => {
     var div = event.target;
-    if (event.target.nodeName !== "DIV") {
-      div = event.target.parentNode;
+    while (div.nodeName !== "DIV") {
+      div = div.parentNode;
     }
     props.videoRef.current.playbackRate = div.getAttribute('data-value');
     props.setSelected(div.getAttribute('data-value'));
