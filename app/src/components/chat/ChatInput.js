@@ -9,16 +9,16 @@ const ChatInput = (props) => {
       sendBtn.style.transform = "";
     }, 250);
     const userMessage = document.querySelector("#messageBox");
-      if (userMessage.textContent.length > 0) {
-        const message  = {
-          userId: "64066123269b0611c1872182",
-          roomId: props.roomId,
-          message: userMessage.textContent,
-        }
-        props.socket?.emit("room.chat", message);
-        userMessage.textContent = "";
-        userMessage.focus();
+    if (userMessage.textContent.length > 0) {
+      const message  = {
+        userId: "64066123269b0611c1872182",
+        roomId: props.roomId,
+        message: userMessage.textContent,
       }
+      props.socket?.emit("room.chat", message);
+      userMessage.textContent = "";
+      userMessage.focus();
+    }
   }
 
   const keyDownHandler = (event) => {
