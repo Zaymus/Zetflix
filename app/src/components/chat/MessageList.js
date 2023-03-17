@@ -1,34 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Message from './Message';
 
+const testMessages = [
+  
+];
+
 const MessageList = (props) => {
-  const messages = [
-    {
-      username: "TestUser",
-      message: "hello1",
-    },
-    {
-      username: "TestUser",
-      message: "hello2",
-    },
-    {
-      username: "Me",
-      message: "Hey!",
-    },
-    {
-      username: "TestUser",
-      message: "hello3",
-    },
-    {
-      username: "TestUser",
-      message: "hello4",
-    },
-  ];
+  const [messages, setMessages] = useState(testMessages);
+  const socket = props.socket;
+
+  useEffect(() => {
+    socket?.on('chatMessage', (message) => {
+      setMessages((prevState) => {
+        return [
+          ...prevState,
+          message,
+        ]
+      })
+    });
+  }, [socket]);
 
   return (
     <div className='messagelist--container'>
       {messages.map((message) => {
-        return <Message username={message.username} message={message.message}/>
+        return <Message username={message.username} message={message.message} />
       })}
     </div> 
   )
