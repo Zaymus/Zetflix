@@ -41,7 +41,7 @@ const TheatreRoom = (props) => {
 
   return (
     <div className='room--container'>
-      <VideoPlayer videoId={props.videoId} captions={captions}/>
+      <VideoPlayer videoId={props.videoId} captions={captions} room={props.roomId} socket={socket} />
       <Chat roomId={props.roomId} socket={socket}/>
     </div>
   );

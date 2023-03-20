@@ -71,6 +71,14 @@ mongoose
 				client.broadcast.emit('chatMessage', {username: user.username, message: data.message});
 				//io.in(data.roomId).emit('chatMessage', {username: user.username, message: data.message});
 			});
+	
+			client.on('room.play', (time) => {
+				client.broadcast.emit('playVideo', time.time);
+			});
+
+			client.on('room.pause', (time) => {
+				client.broadcast.emit('pauseVideo', time.time);
+			});
 		});
 		console.log(`Listening on port ${env.API_PORT}!`);
 	})

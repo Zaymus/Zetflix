@@ -92,6 +92,8 @@ const VideoPlayer = (props) => {
 				onSeek={seekHandler}
 				fullscreenControls={{fullscreen: fullscreen, setFullScreen: setFullScreen}}
 				videoData={videoData}
+				room={props.room}
+				socket={props.socket} 
 			/>
 		</div>
 	);

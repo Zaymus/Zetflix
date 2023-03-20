@@ -21,7 +21,7 @@ const VideoControls = (props, ref) => {
 					<SeekBarTimeData timeData={props.timeData}/>
 					<SeekBar videoRef={props.videoRef} timeData={props.timeData} onSeek={props.onSeek}/>
 					<div className="bottom-controls--wrapper">
-						<PrimaryControls videoRef={props.videoRef} />
+						<PrimaryControls videoRef={props.videoRef} room={props.room} socket={props.socket} />
 						<SecondaryControls 
 							videoRef={props.videoRef} 
 							bottomControlRef={bottomControlRef} 
