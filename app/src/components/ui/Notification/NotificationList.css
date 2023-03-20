@@ -1,0 +1,11 @@
+.notificationList--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 3vw;
+  right: 3vw;
+  overflow-y: auto;
+  max-height: 50vh;
+  width: 20vw;
+}

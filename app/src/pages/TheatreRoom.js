@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import VideoPlayer from '../components/video/VideoPlayer';
 import Chat from '../components/chat/Chat';
-// import { socket } from '../util/socket';
+import NotificationList from '../components/ui/Notification/NotificationList';
 import openSocket from 'socket.io-client';
 import './TheatreRoom.css';
 
@@ -43,6 +43,7 @@ const TheatreRoom = (props) => {
     <div className='room--container'>
       <VideoPlayer videoId={props.videoId} captions={captions} room={props.roomId} socket={socket} />
       <Chat roomId={props.roomId} socket={socket}/>
+      <NotificationList socket={socket}/>
     </div>
   );
 }
