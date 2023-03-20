@@ -20,6 +20,8 @@ const PlaybackModal = (props) => {
         videoRef={props.videoRef} 
         selected={props.selected} 
         setSelected={props.setSelected}
+        room={props.room}
+        socket={props.socket}
       />
     </div>
   );

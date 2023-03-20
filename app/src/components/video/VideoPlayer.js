@@ -33,6 +33,10 @@ const VideoPlayer = (props) => {
 		const video = document.querySelector("#video-player");
 		const newTime = percentage * video.duration;
 		video.currentTime = newTime;
+		props.socket?.emit("room.seek", {
+			time: video.currentTime,
+			roomId: props.room
+		});
 		setTimes((prevState) => {
 			return {
 				...prevState,

@@ -3,29 +3,35 @@ import React, { useState, useEffect } from 'react';
 const PlayPause = (props) => {
   const [videoState, setVideoState] = useState("paused");
 
-	const playPauseClickHandler = (broadcast = true) => {
+	const playPauseClickHandler = () => {
   	if (videoState === "paused") {
 			props.videoRef.current.play();
 			setVideoState("playing");
-			broadcast && props.socket?.emit("room.play", {time: props.videoRef.current.currentTime});
+			props.socket?.emit("room.play", {
+				time: props.videoRef.current.currentTime,
+				roomId: props.room
+			});
 		}
 
 		if (videoState === "playing") {
 			props.videoRef.current.pause();
 			setVideoState("paused");
-			broadcast && props.socket?.emit("room.pause", {time: props.videoRef.current.currentTime});
+			props.socket?.emit("room.pause", {
+				time: props.videoRef.current.currentTime,
+				roomId: props.room
+			});
 		}
 	}
 
 	useEffect(() => {
-		props.socket?.on("playVideo", (data) => {
- 			props.videoRef.current.currentTime = parseFloat(data.time);
+		props.socket?.on("playVideo", (time) => {
+ 			props.videoRef.current.currentTime = parseFloat(time);
 			props.videoRef.current.play();
 			setVideoState("playing");
 		});
 
-		props.socket?.on("pauseVideo", (data) => {
-			props.videoRef.current.currentTime = parseFloat(data.time);
+		props.socket?.on("pauseVideo", (time) => {
+			props.videoRef.current.currentTime = parseFloat(time);
 			props.videoRef.current.pause();
 			setVideoState("paused");
 		});

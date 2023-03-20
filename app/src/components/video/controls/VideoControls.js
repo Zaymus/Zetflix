@@ -26,6 +26,8 @@ const VideoControls = (props, ref) => {
 							videoRef={props.videoRef} 
 							bottomControlRef={bottomControlRef} 
 							fullscreenControls={props.fullscreenControls}
+							room={props.room}
+							socket={props.socket}
 						/>
 					</div>
 				</div>
