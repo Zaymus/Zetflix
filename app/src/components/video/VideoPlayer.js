@@ -33,6 +33,10 @@ const VideoPlayer = (props) => {
 		const video = document.querySelector("#video-player");
 		const newTime = percentage * video.duration;
 		video.currentTime = newTime;
+		props.socket?.emit("room.seek", {
+			time: video.currentTime,
+			roomId: props.room
+		});
 		setTimes((prevState) => {
 			return {
 				...prevState,
@@ -80,7 +84,7 @@ const VideoPlayer = (props) => {
 				onTimeUpdate={timeUpdateHandler}
 			>
 				<source src={`http://localhost:9000/api/video/${props.videoId}`} type="video/mp4" />
-				{props.captions.length && props.captions.map((caption) => {
+				{props.captions?.length && props.captions.map((caption) => {
 					return <track kind="subtitles" label={caption.label} data-key={caption.captionKey} key={caption._id}/>
 				})}
 			</video>
@@ -92,6 +96,8 @@ const VideoPlayer = (props) => {
 				onSeek={seekHandler}
 				fullscreenControls={{fullscreen: fullscreen, setFullScreen: setFullScreen}}
 				videoData={videoData}
+				room={props.room}
+				socket={props.socket} 
 			/>
 		</div>
 	);

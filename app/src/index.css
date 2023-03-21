@@ -8,6 +8,15 @@
 	--clr-control-grey-700: hsl(0, 0%, 70%);
 	--clr-control-grey: hsl(0, 0%, 40%);
 	--clr-bg-modal: hsla(0, 0%, 20%, 0.6);
+
+	--clr-noti-error: hsl(0, 60%, 50%);
+	--clr-noti-error-bg: hsl(0, 60%, 90%);
+	--clr-noti-success: hsl(120, 60%, 50%);
+	--clr-noti-success-bg: hsl(120, 60%, 90%);
+	--clr-noti-warning: hsl(50, 90%, 50%);
+	--clr-noti-warning-bg: hsl(50, 90%, 90%);
+	--clr-noti-announcement: hsl(0, 0%, 50%);
+	--clr-noti-announcement-bg: hsl(0, 0%, 90%);
 }
 
 * {

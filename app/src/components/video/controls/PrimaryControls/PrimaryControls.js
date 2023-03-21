@@ -8,9 +8,9 @@ const PrimaryControls = (props) => {
 
   return (
     <div className="control--group">
-      <PlayPause videoRef={props.videoRef} />
-      <RewindSeek videoRef={props.videoRef} />
-      <ForwardSeek videoRef={props.videoRef} />
+      <PlayPause videoRef={props.videoRef} room={props.room} socket={props.socket} />
+      <RewindSeek videoRef={props.videoRef} room={props.room} socket={props.socket} />
+      <ForwardSeek videoRef={props.videoRef} room={props.room} socket={props.socket} />
       <Volume videoRef={props.videoRef}/>
     </div>
   );

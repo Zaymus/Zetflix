@@ -17,7 +17,7 @@ const authRouter = require('./routes/auth');
 
 const Users = require('./models/user');
 
-apiRouter.use(cors());
+apiRouter.use(cors({origin: env.APP_URL}));
 apiRouter.use('/users', userRouter);
 apiRouter.use('/video', videoRouter);
 apiRouter.use('/rating', ratingRouter);
@@ -41,31 +41,80 @@ mongoose
 	.connect(env.MONGODB_URL)
 	.then((result) => {
 		const server = app.listen(env.API_PORT);
-		const io = require('./util/socket').init(server);
-    io.on('connect', client => {
-			console.log('Client connected');
+		const io = require('./util/socket').init(server, {
+			cors: {
+				origins: [env.APP_URL]
+			}
+		});
+    io.on('connection', client => {
+			console.log('Client connected', client.id);
 
 			client.on('room.join', async (data) => {
 				const user = await Users.findById(data.userId);
 
 				client.join(data.roomId);
-				client.leave(client.id);
-				client.emit('message', `${user.username}, welcome to the theatre room!`);
-				client.to(data.roomId).emit('message', `${user.username} has joined the theatre room!`);
+
+				client.emit('announcement', {
+					title: "Successfully Joined!",
+					type: "success",
+					message: `${user.username}, welcome to the theatre room!`
+				});
+
+				client.to(data.roomId).emit('announcement', {
+					title: "User Joined!",
+					message: `${user.username} has joined the theatre room!`
+				});
 			});
 
 			client.on('room.leave', async (data) => {
 				const user = await Users.findById(data.userId);
 
-				client.join(client.id);
 				client.leave(data.roomId);
-				io.in(data.roomId).emit('message', `${user.username}, has left the theatre room.`);
+				io.in(data.roomId).emit('announcement', {
+					title: "User Left",
+					message: `${user.username}, has left the theatre room.`
+				});
 			});
 
 			client.on('room.chat', async (data) => {
 				const user = await Users.findById(data.userId);
-				
-				io.in(data.roomId).emit('message', `${user.username}: ${data.message}`);
+				io.in(data.roomId).emit('chatMessage', {username: user.username, message: data.message});
+			});
+	
+			client.on('room.play', (data) => {
+				io.in(data.roomId).emit('playVideo', data.time);
+				io.in(data.roomId).emit('announcement', {
+					type: "announcement",
+					title: "Video Resumed!",
+					message: "Video has started playing.",
+				});
+			});
+
+			client.on('room.pause', (data) => {
+				io.in(data.roomId).emit('pauseVideo', data.time);
+				io.in(data.roomId).emit('announcement', {
+					type: "announcement",
+					title: "Video Paused!",
+					message: "Video has been paused.",
+				});
+			});
+
+			client.on('room.seek', (data) => {
+				io.in(data.roomId).emit('seekVideo', data.time);
+				io.in(data.roomId).emit('announcement', {
+					type: "announcement",
+					title: "Video Time Changed!",
+					message: `Video time has been changed.`,
+				});
+			});
+
+			client.on('room.playbackRate', (data) => {
+				io.in(data.roomId).emit('videoSpeed', data.speed);
+				io.in(data.roomId).emit('announcement', {
+					type: "announcement",
+					title: "Playback Rate Changed!",
+					message: `Video playback rate has been changed to ${data.speed}x`,
+				});
 			});
 		});
 		console.log(`Listening on port ${env.API_PORT}!`);

@@ -5,7 +5,6 @@
   padding: 1rem;
   position: relative;
   border-radius: 10px;
-  overflow-y: scroll;
   background-color: var(--clr-control-grey);
   display: flex;
   flex-direction: column-reverse;

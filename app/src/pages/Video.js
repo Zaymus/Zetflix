@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import VideoPlayer from '../components/video/VideoPlayer';
 
-const Video = (props) => {
-  const [captions, setCaptions] = useState("");
+class Video extends Component {
+  state = {
+    captions: "",
+  }
 
-  if(!captions) {
-    fetch(`http://localhost:9000/api/caption/${props.videoId}`, {
+  componentDidMount() {
+    fetch(`http://localhost:9000/api/caption/${this.props.videoId}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -15,21 +17,23 @@ const Video = (props) => {
       return response.json();
     })
     .then(jsonData => {
-      setCaptions(jsonData);
+      this.setState({captions: jsonData});
     })
     .catch(err => {
       console.log(err);
     });
   }
 
-	return (
-		<div>
-			<VideoPlayer 
-				videoId={props.videoId}
-				captions={captions}
-			/>
-		</div>
-	);
+  render() {
+    return (
+      <div>
+        <VideoPlayer 
+          videoId={this.props.videoId}
+          captions={this.state.captions}
+        />
+      </div>
+    );
+  }
 }
 
 export default Video;

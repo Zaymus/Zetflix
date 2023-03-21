@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./SeekBar.css";
 
 const SeekBar = (props) => {
@@ -12,18 +12,14 @@ const SeekBar = (props) => {
     props.onSeek(percentage);
   }
 
-  const seekHoverHandler = (event) => {
-    // var seekbar = document.querySelector('.seekbar--container').getBoundingClientRect();
-    // var videoPlayer = document.querySelector('#video-player').getBoundingClientRect();
-    // var offset = seekbar.left + videoPlayer.left;
-    // var left = event.pageX - offset;
-    // var width = seekbar.width;
-    // var percentage = left / width;
-    // console.log(percentage);
-  }
+  useEffect(() => {
+		props.socket?.on("seekVideo", (time) => {
+ 			props.videoRef.current.currentTime = parseFloat(time);
+		});
+	}, [props]);
 
   return (
-    <div className="seekbar--container" onClick={seekClickHandler} onMouseMove={seekHoverHandler}>
+    <div className="seekbar--container" onClick={seekClickHandler} >
       <span className="buffered" style={{width: props.timeData.buffered + "%"}}></span>
       <span className="watched" style={{width: props.timeData.watched + "%"}}></span>
     </div>

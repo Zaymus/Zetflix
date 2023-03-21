@@ -11,7 +11,7 @@ const PlayBackSpeed = (props) => {
 
   return (
     <div>
-      { showSpeeds && <PlaybackModal bottomControlRef={props.bottomControlRef} showSpeeds={setShowSpeeds} videoRef={props.videoRef} selected={selected} setSelected={setSelected}/>}
+      { showSpeeds && <PlaybackModal bottomControlRef={props.bottomControlRef} showSpeeds={setShowSpeeds} videoRef={props.videoRef} selected={selected} setSelected={setSelected} room={props.room} socket={props.socket} />}
       <i 
         className="fa-solid fa-gauge-high controls--icon" 
         onClick={speedClickHandler}

@@ -7,6 +7,7 @@
   background-color: hsl(0, 0%, 90%);
   border-radius: 20px;
   z-index: 30;
+  overflow: hidden;
 }
 
 .input--container span {
@@ -34,14 +35,15 @@
   color: hsla(0, 0%, 0%, 0.7);
 }
 
-.input--container i {
+.input--container .btn-send {
   color: var(--clr-main-accent);
   font-size: 2vw;
   transition: all 250ms ease-in;
   cursor: pointer;
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  transform: scale(1);
 }
 
-.input--container i:hover {
+.input--container .btn-send:hover {
   transform: rotate(10deg);
 }

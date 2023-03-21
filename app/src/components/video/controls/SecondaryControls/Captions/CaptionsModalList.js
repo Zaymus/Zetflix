@@ -8,8 +8,8 @@ const CaptionsModalList = (props) => {
   const captionClickHandler = (event) => {
     const parser = new WebVTTParser();
     var track = event.target;
-    if (track.nodeName !== "DIV") {
-      track = event.target.parentNode;
+    while (track.nodeName !== "DIV") {
+      track = track.parentNode;
     }
     props.setSelected(track.getAttribute("data-key"));
 

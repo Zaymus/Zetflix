@@ -1,0 +1,81 @@
+.notification--container {
+  width: 80%;
+  min-height: min-content;
+  height: 10vh;
+  max-height: 15vh;
+  border-radius: 10px;
+  margin: 10px;
+  outline-style: solid;
+  outline-width: 2px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 0 0 0;
+}
+
+.notification--wrapper {
+  margin: 5px;
+  margin-bottom: auto;
+}
+
+.notification--container h3 {
+  margin: 0px;
+}
+
+.notification--container .duration {
+  margin-top: 5px;
+  width: calc(100% + 10px);
+  height: 5px;
+  display: block;
+  border-radius: 20px;
+  animation: shrink 5s linear;
+}
+
+.error {
+  background-color: var(--clr-noti-error-bg);
+  outline-color: var(--clr-noti-error);
+}
+
+.error .duration {
+  background-color: var(--clr-noti-error);
+}
+
+.success {
+  background-color: var(--clr-noti-success-bg);
+  outline-color: var(--clr-noti-success);
+}
+
+.success .duration {
+  background-color: var(--clr-noti-success);
+}
+
+.warning {
+  background-color: var(--clr-noti-warning-bg);
+  outline-color: var(--clr-noti-warning);
+}
+
+.warning .duration {
+  background-color: var(--clr-noti-warning);
+}
+
+.announcement {
+  background-color: var(--clr-noti-announcement-bg);
+  outline-color: var(--clr-noti-announcement);
+}
+
+.announcement .duration {
+  background-color: var(--clr-noti-announcement);
+}
+
+@keyframes shrink {
+  0% {
+    margin-left: 0;
+    width: 100%;
+  }
+  100% {
+    margin-left: 100%;
+    width: 0%;
+  }
+}

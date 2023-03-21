@@ -3,11 +3,11 @@ import ChatInput from './ChatInput';
 import MessageList from './MessageList';
 import './Chat.css';
 
-const Chat = () => {
+const Chat = (props) => {
   return (
   <div className='chat--container'>
-    <ChatInput />
-    <MessageList />
+    <ChatInput socket={props.socket} roomId={props.roomId}/>
+    <MessageList socket={props.socket}/>
   </div>
   )
 }
