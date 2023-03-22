@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Route, Routes, Link} from 'react-router-dom';
 import Video from "./pages/Video";
 import TheatreRoom from "./pages/TheatreRoom";
 import Login from './pages/Login';
@@ -41,10 +42,19 @@ class App extends Component {
 	}
 
 	render() {
-		// return (<Video videoId="63fd57ad00f5e1f9186f4daf"/>);
-		// return (<TheatreRoom videoId="63fd57ad00f5e1f9186f4daf" roomId="64077e3cb7676b8118f58739"/>);
-		// return (<div></div>)
-		return <Login onLogin={this.loginHandler.bind(this)}></Login>
+		return(
+			<div>
+				<Link to="/login">Login</Link>
+				<Link to="/video/63fd57ad00f5e1f9186f4daf">Watch Video</Link>
+				<Link to="/theatre-room/64077e3cb7676b8118f58739/video/63fd57ad00f5e1f9186f4daf">Theatre Room</Link>
+
+				<Routes>
+					<Route path="/login" element={<Login onLogin={this.loginHandler.bind(this)} />} />
+					<Route path="/theatre-room/:roomId/video/:videoId" element={<TheatreRoom />}/>
+					<Route path="/video/:videoId" element={<Video />}/>
+				</Routes>
+			</div>
+		)
 	}
 }
 
