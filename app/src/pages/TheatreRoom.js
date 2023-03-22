@@ -13,7 +13,7 @@ class TheatreRoom extends Component {
 
   componentDidMount() {
     const socket = openSocket("http://localhost:9000", {transports:["websocket"]});
-    socket.emit('room.join', {roomId: this.props.roomId, userId: "64066123269b0611c1872182"});
+    socket.emit('room.join', {roomId: this.props.roomId, userId: localStorage.getItem('userId')});
     this.setState({socket: socket});
 
     fetch(`http://localhost:9000/api/caption/${this.props.videoId}`, {

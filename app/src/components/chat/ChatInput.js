@@ -11,7 +11,7 @@ const ChatInput = (props) => {
     const userMessage = document.querySelector("#messageBox");
     if (userMessage.textContent.length > 0) {
       const message  = {
-        userId: "64066123269b0611c1872182",
+        userId: localStorage.getItem('userId'),
         roomId: props.roomId,
         message: userMessage.textContent,
       }

@@ -9,7 +9,7 @@ class Message extends Component {
 
   render() {
     return (
-      <div className={`message--container ${this.props.username === 'tempUser' ? 'from-me' : ''}`} key={this.props.msgKey}>
+      <div className={`message--container ${this.props.username === localStorage.getItem('username') ? 'from-me' : ''}`} key={this.props.msgKey}>
         <h3>{this.props.username}</h3>
         <p>{this.props.message}</p>
       </div>
