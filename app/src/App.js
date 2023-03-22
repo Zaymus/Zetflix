@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Video from "./pages/Video";
 import TheatreRoom from "./pages/TheatreRoom";
+import Login from './pages/Login';
 
 class App extends Component {
 	state = {
@@ -32,6 +33,7 @@ class App extends Component {
 			});
 			localStorage.setItem('token', resData.token);
 			localStorage.setItem('userId', resData.userId);
+			localStorage.setItem('username', resData.username);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -40,8 +42,9 @@ class App extends Component {
 
 	render() {
 		// return (<Video videoId="63fd57ad00f5e1f9186f4daf"/>);
-		return (<TheatreRoom videoId="63fd57ad00f5e1f9186f4daf" roomId="64077e3cb7676b8118f58739"/>);
+		// return (<TheatreRoom videoId="63fd57ad00f5e1f9186f4daf" roomId="64077e3cb7676b8118f58739"/>);
 		// return (<div></div>)
+		return <Login onLogin={this.loginHandler.bind(this)}></Login>
 	}
 }
 

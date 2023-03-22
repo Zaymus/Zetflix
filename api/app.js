@@ -17,7 +17,12 @@ const authRouter = require('./routes/auth');
 
 const Users = require('./models/user');
 
-apiRouter.use(cors({origin: env.APP_URL}));
+app.use(function (req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', env.APP_URL);
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
+	next();
+});
 apiRouter.use('/users', userRouter);
 apiRouter.use('/video', videoRouter);
 apiRouter.use('/rating', ratingRouter);

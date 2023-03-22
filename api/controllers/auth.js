@@ -33,13 +33,13 @@ exports.postLogin = async (req, res, next) => {
     const user = await User.findOne({username: username});
     if (!user) {
       const error = new Error("Incorrect email/password, please Try again");
-      error.statusCode = 400;
+      error.statusCode = 422;
       next(error);
     } else {
       const result = await bcrypt.compare(password, user.password);
       if (!result) {
         const error = new Error("Incorrect email/password, please Try again");
-        error.statusCode = 400;
+        error.statusCode = 422;
         next(error);
       } else {
         const token = jwt.sign(
@@ -53,7 +53,7 @@ exports.postLogin = async (req, res, next) => {
           {expiresIn: '1D'}
         );
 
-        res.status(200).json({token: token, userId: user._id.toString()});
+        res.status(200).json({token: token, userId: user._id.toString(), username: user.username});
       }
     }
   } catch (err) {
