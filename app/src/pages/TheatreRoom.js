@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import VideoPlayer from '../components/video/VideoPlayer';
 import Chat from '../components/chat/Chat';
 import NotificationList from '../components/ui/Notification/NotificationList';
 import openSocket from 'socket.io-client';
 import './TheatreRoom.css';
 
-class TheatreRoom extends Component {
-  state = {
-    socket: null,
-    captions: "",
-  }
+const TheatreRoom = () => {
+  const { roomId, videoId } = useParams();
 
-  componentDidMount() {
+  const [state, setState] = useState({socket: null, captions: ""});
+
+
+  useEffect(() => {
     const socket = openSocket("http://localhost:9000", {transports:["websocket"]});
-    socket.emit('room.join', {roomId: this.props.roomId, userId: localStorage.getItem('userId')});
-    this.setState({socket: socket});
+    socket.emit('room.join', {roomId: roomId, userId: localStorage.getItem('userId')});
+    setState((prevState) => {
+      return {
+        ...prevState,
+        socket: socket,
+      }
+    });
 
-    fetch(`http://localhost:9000/api/caption/${this.props.videoId}`, {
+    fetch(`http://localhost:9000/api/caption/${videoId}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -26,22 +32,22 @@ class TheatreRoom extends Component {
       return response.json();
     })
     .then(jsonData => {
-      this.setState({captions: jsonData});
+      setState((prevState) => {
+        return {...prevState, captions: jsonData}
+      });
     })
     .catch(err => {
       console.log(err);
     });
-  }
+  }, [roomId, videoId]);
 
-  render() {
-    return (
-      <div className='room--container'>
-        <VideoPlayer videoId={this.props.videoId} captions={this.state.captions} room={this.props.roomId} socket={this.state.socket} />
-        <Chat roomId={this.props.roomId} socket={this.state.socket}/>
-        <NotificationList socket={this.state.socket}/>
-      </div>
-    );
-  }
+  return (
+    <div className='room--container'>
+      <VideoPlayer videoId={videoId} captions={state.captions} room={roomId} socket={state.socket} />
+      <Chat roomId={roomId} socket={state.socket}/>
+      <NotificationList socket={state.socket}/>
+    </div>
+  );
 }
 
 export default TheatreRoom;
