@@ -1,0 +1,69 @@
+.loginform--container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.loginform--container p {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.loginform--container form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  width: 100%;
+  font-size: 1.5rem;
+  border: none;
+  border-bottom: 2px solid var(--clr-bg-100);
+  transition: all 300ms ease-in-out;
+}
+
+form input::placeholder {
+  opacity: 0.7;
+}
+
+form input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--clr-main-accent);
+}
+
+form button {
+  margin: 1vw 0px;
+  width: 40%;
+  padding: 10px;
+  align-self: flex-end;
+  background-color: var(--clr-main-accent);
+  border: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.form--links {
+  margin: 1vw;
+  display: flex;
+  width: 80%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.link {
+  color: var(--clr-main-accent);
+}
+
+.link:hover {
+  opacity: 0.8;
+}
