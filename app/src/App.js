@@ -46,12 +46,12 @@ class App extends Component {
 			<div>
 				<Link to="/login">Login</Link>
 				<Link to="/video/63fd57ad00f5e1f9186f4daf">Watch Video</Link>
-				<Link to="/theatre-room/64077e3cb7676b8118f58739/video/63fd57ad00f5e1f9186f4daf">Theatre Room</Link>
+				{ this.state.token && <Link to="/theatre-room/64077e3cb7676b8118f58739/video/63fd57ad00f5e1f9186f4daf">Theatre Room</Link> }
 
 				<Routes>
 					<Route path="/login" element={<Login onLogin={this.loginHandler.bind(this)} />} />
-					<Route path="/theatre-room/:roomId/video/:videoId" element={<TheatreRoom />}/>
 					<Route path="/video/:videoId" element={<Video />}/>
+					{ this.state.token && <Route path="/theatre-room/:roomId/video/:videoId" element={<TheatreRoom />}/> }
 				</Routes>
 			</div>
 		)
