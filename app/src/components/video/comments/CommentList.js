@@ -7,7 +7,6 @@ const CommentList = (props) => {
   const [comments, setComments] = useState([]);
   
   useEffect(() => {
-    console.log("Comment list re-render");
     if (props.commentData) {
       document.querySelector(".commentList--container").setAttribute("data-state", "loaded");
     }
