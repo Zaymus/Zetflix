@@ -6,10 +6,12 @@ import './Login.css';
 const Login = (props) => {
 
   return (
-    <div className="login--container">
-      <Card>
-        <LoginForm onLogin={props.onLogin}/>
-      </Card>
+    <div className='login--bg'>
+      <div className="login--container">
+        <Card>
+          <LoginForm onLogin={props.onLogin}/>
+        </Card>
+      </div>
     </div>
   )
 }
