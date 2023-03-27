@@ -1,0 +1,14 @@
+.commentList--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 85vh;
+  padding: 5vh;
+  overflow-y: scroll;
+}
+
+.commentList--container[data-state="loading"] {
+  justify-content: center;
+}

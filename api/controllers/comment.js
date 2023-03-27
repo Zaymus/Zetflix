@@ -7,14 +7,14 @@ exports.create = async (req, res, next) => {
   const parentCommentId = req.query.parentCommentId;
 
   try {
-    await Comment.create({
+    const comment = await Comment.create({
       author: req.user,
       videoId: videoId,
       message: message,
       parentCommentId: parentCommentId,
     });
 
-    res.status(201).json({ message: "Comment successfully posted"});
+    res.status(201).json({ message: "Comment successfully posted", comment: comment});
   } catch (err) {
     if(!err.statusCode) {
       err.statusCode = 500;

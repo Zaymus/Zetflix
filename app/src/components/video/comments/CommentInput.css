@@ -1,0 +1,46 @@
+.commentInput--container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px 0px;
+}
+
+.commentInput--container span {
+  width: 80%;
+  min-height: 40px;
+  display: block;
+  overflow: hidden;
+  resize: none;
+  line-height: 20px;
+  margin: 0px 5vw 0px 0px;
+  padding: 5px 10px;
+  border: 0;
+  border-bottom: 2px solid black;
+  border-radius: 15px;
+  cursor: text;
+}
+
+.commentInput--container span:focus {
+  outline: none;
+  border-bottom: 2px solid var(--clr-main-accent);
+}
+
+.commentInput--container span:empty::before {
+  content: "Start typing...";
+  color: hsla(0, 0%, 0%, 0.7);
+}
+
+.commentInput--container .btn-send {
+  color: var(--clr-main-accent);
+  font-size: 2vw;
+  transition: all 250ms ease-in;
+  cursor: pointer;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  transform: scale(1);
+}
+
+.commentInput--container .btn-send:hover {
+  transform: rotate(10deg);
+}

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import VideoPlayer from '../components/video/VideoPlayer';
+import CommentSection from '../components/video/comments/CommentSection';
 
-const Video = () => {
+const Video = (props) => {
   const { videoId } = useParams();
   const [captions, setCaptions] = useState("");
 
@@ -30,6 +31,8 @@ const Video = () => {
         videoId={videoId}
         captions={captions}
       />
+
+      <CommentSection videoId={videoId} />
     </div>
   );
 }

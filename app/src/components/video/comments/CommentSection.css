@@ -1,0 +1,11 @@
+.comments--container {
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 95%;
+  border-radius: 10px;
+  background-color: var(--clr-main-control);
+}
+
+.comments--container hr {
+  width: 95%;
+}
