@@ -77,10 +77,10 @@ class LoginForm extends Component {
 
           <button type="submit">Submit</button>
         </form>
-        <div className='form--links'>
+        {/* <div className='form--links'>
           <a className='link' href='/' >Forgot Password?</a>
           <a className='link' href='/' >Don't have an account?</a>
-        </div>
+        </div> */}
       </div>
     )
   }
