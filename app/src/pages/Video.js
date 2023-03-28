@@ -26,14 +26,14 @@ const Video = (props) => {
   }, [videoId]);
 
   return (
-    <div>
+    <>
       <VideoPlayer 
         videoId={videoId}
         captions={captions}
       />
 
       <CommentSection videoId={videoId} />
-    </div>
+    </>
   );
 }
 
