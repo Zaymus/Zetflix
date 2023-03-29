@@ -4,11 +4,13 @@ import NavBar from "./components/ui/NavBar";
 import Video from "./pages/Video";
 import TheatreRoom from "./pages/TheatreRoom";
 import Login from './pages/Login';
+import Logout from './pages/Logout';
 import Dashboard from './pages/Dashboard';
+import NotificationList from './components/ui/Notification/NotificationList';
 
 const App = () => {
 
-	const [state, setState] = useState({token: null, userId: null, error: null});
+	const [state, setState] = useState({token: null, userId: null, notification: null});
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -38,17 +40,18 @@ const App = () => {
 				setState((prevState) => {
 					return {
 						...prevState,
-						error: resData.data,
+						notification: resData.data,
 					};
 				});
 			} else {
 				setState({
-					token: resData.token,
-					userId: resData.userId,
+					token: resData.data.token,
+					userId: resData.data.userId,
+					notification: {title: "Login Successful!", type: "success", message: `${resData.data.username}, you have been successfully logged in!`}
 				});
-				localStorage.setItem('token', resData.token);
-				localStorage.setItem('userId', resData.userId);
-				localStorage.setItem('username', resData.username);
+				localStorage.setItem('token', resData.data.token);
+				localStorage.setItem('userId', resData.data.userId);
+				localStorage.setItem('username', resData.data.username);
 				navigate(redirectUrl);
 			}
 		})
@@ -57,33 +60,41 @@ const App = () => {
 		})
 	}
 
-	const removeErrorHandler = () => {
-		console.log("remove notification state");
+	const removeNotificationHandler = () => {
 		setState((prevState) => {
 			return {
 				...prevState,
-				error: null,
+				notification: null,
 			}
+		});
+	}
+
+	const logoutHandler = () => {
+		localStorage.removeItem("token");
+		localStorage.removeItem("userId");
+		localStorage.removeItem("username");
+		setState({
+			token: null,
+			userId: null,
+			notification: {title: "Logout Successful!", type: "success", message: "You have been Successfully logged out."}
 		});
 	}
 
 	return (
 		<div>
 			<NavBar>
-				<Link to="/login">Login</Link>
+				{!state.token && <Link to="/login">Login</Link>}
+				{state.token && <Link to="/logout">Logout</Link>}
 				<Link to="/video/63fe4be525aafdeef1686567">Watch Video</Link>
 				{ state.token && <Link to="/theatre-room/64077e3cb7676b8118f58739/video/63fd57ad00f5e1f9186f4daf">Theatre Room</Link> }
 			</NavBar>
-			
+
+			<NotificationList notification={state.notification} removeNotification={removeNotificationHandler}/>
+
 			<Routes>
 				<Route path="/" element={<Dashboard />} />
-				<Route path="/login" element={
-					<Login 
-						onLogin={loginHandler.bind(this)} 
-						error={state.error}
-						removeNotification={removeErrorHandler}
-					/>
-				}/>
+				<Route path="/login" element={<Login onLogin={loginHandler.bind(this)} />}/>
+				<Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
 				<Route path="/video/:videoId" element={<Video />}/>
 				{ state.token && <Route path="/theatre-room/:roomId/video/:videoId" element={<TheatreRoom />}/> }
 			</Routes>
