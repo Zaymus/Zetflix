@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {Route, Routes, Link, useLocation, useNavigate} from 'react-router-dom';
 import NavBar from "./components/ui/NavBar";
 import Video from "./pages/Video";
@@ -79,6 +79,17 @@ const App = () => {
 			notification: {title: "Logout Successful!", type: "success", message: "You have been Successfully logged out."}
 		});
 	}
+
+	useEffect(() => {
+		setState((prevState => {
+			return {
+				...prevState,
+				token: localStorage.getItem("token"),
+				userId: localStorage.getItem("userId"),
+				username: localStorage.getItem("username"),
+			}
+		}));
+	}, [setState]);
 
 	return (
 		<div>
