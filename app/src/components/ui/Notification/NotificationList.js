@@ -57,13 +57,12 @@ class NotificationList extends Component {
 
     if (this.props.notification) {
       const isPrevNotification = this.props.notification === this.state.prevNotification;
-      console.log(isPrevNotification);
       if(!isPrevNotification) {
         this.addNotification({
           ...this.props.notification,
             type: this.props.notification.type ? this.props.notification.type : 'announcement'
         });
-        
+
         this.setState({prevNotification: this.props.notification});
         this.props.removeNotification();
       }
