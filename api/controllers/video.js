@@ -1,8 +1,10 @@
 const Video = require('../models/video');
+const { Readable } = require('stream');
 const { env, s3 } = require('../util/constants');
 
 exports.postCreate = async (req, res, next) => {
   const videoKey = req.videoKey;
+  const thumbnailKey = req.thumbnailKey;
   const title = req.body.title;
   const description = req.body.description;
 
@@ -13,6 +15,7 @@ exports.postCreate = async (req, res, next) => {
       uploadDate: Date.now(),
       videoKey: videoKey,
       creator: req.user,
+      thumbnail: thumbnailKey,
     });
 
     res.status(201).json({message: "Uploaded video successfully!", video: video});
@@ -29,7 +32,7 @@ exports.getVideos = async (req, res, next) => {
     const videos = await Video.find();
     if (!videos) {
       const error = new Error('Could not retrieve videos.');
-      error.status(500);
+      error.status(404);
       throw error;
     }
     res.status(200).json(videos);
@@ -179,6 +182,34 @@ exports.getVideo = async (req, res, next) => {
       throw error;
     }
     res.status(200).json(video);
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+}
+
+exports.getThumbnail = async (req, res, next) => {
+  const videoId = req.params.videoId;
+  try {
+    const video = await Video.findById(videoId);
+
+    if(!video) {
+      const error = new Error('Could not find video with given id.');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const thumbnailKey = video.thumbnail;
+    const params = {
+      Bucket: env.S3_BUCKET_NAME,
+      Key: thumbnailKey,
+    }
+    res.status(206);
+    const data = await s3.getObject(params).promise();
+    const stream = Readable.from(data.Body);
+    stream.pipe(res);
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

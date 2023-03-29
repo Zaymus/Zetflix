@@ -38,6 +38,11 @@ const videoSchema = new Schema({
     type: String,
     required: true,
   },
+  thumbnail: {
+    type: String,
+    required: true,
+    default: env.DEFAULT_THUMBNAIL_KEY
+  },
   creator: creatorSchema,
 });
 
