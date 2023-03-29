@@ -18,7 +18,8 @@ const VideoPlayer = (props) => {
 	const timeUpdateHandler = (event) => {
 		const buff = event.target.buffered;
 		const watchPercent = (event.target.currentTime / event.target.duration) * 100;
-		const buffered = (buff.end(buff.length - 2 || 0) / event.target.duration) * 100;
+		const idx = buff.length >= 2 ? buff.length - 2 : 0;
+		const buffered = (buff.end(idx) / event.target.duration) * 100;
 		setTimes((prevState) => {
 			return {
 				...prevState,
@@ -69,7 +70,7 @@ const VideoPlayer = (props) => {
 	}
 
 	React.useEffect(() => {
-		window.addEventListener("load", handleResize, false);
+		handleResize();
 		window.addEventListener("resize", handleResize, false);
 		getVideoData();
 	}, []);
