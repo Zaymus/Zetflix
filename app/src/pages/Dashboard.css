@@ -1,0 +1,15 @@
+.browse--container {
+  width: 100%;
+  height: 93vh;
+  padding: 3vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-rows: 20vw;
+  row-gap: 5vh;
+  column-gap: 2vw;
+  user-select: none;
+}
+
+.browse--container a {
+  text-decoration: none;
+}

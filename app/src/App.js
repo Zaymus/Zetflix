@@ -96,8 +96,6 @@ const App = () => {
 			<NavBar>
 				{!state.token && <Link to="/login">Login</Link>}
 				{state.token && <Link to="/logout">Logout</Link>}
-				<Link to="/video/63fe4be525aafdeef1686567">Watch Video</Link>
-				{ state.token && <Link to="/theatre-room/64077e3cb7676b8118f58739/video/63fd57ad00f5e1f9186f4daf">Theatre Room</Link> }
 			</NavBar>
 
 			<NotificationList notification={state.notification} removeNotification={removeNotificationHandler}/>
