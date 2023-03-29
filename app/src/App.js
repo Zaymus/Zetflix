@@ -8,7 +8,7 @@ import Dashboard from './pages/Dashboard';
 
 const App = () => {
 
-	const [state, setState] = useState({token: null, userId: null});
+	const [state, setState] = useState({token: null, userId: null, error: null});
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -28,24 +28,43 @@ const App = () => {
 				password: authData.password,
 			}),
 		})
-		.then((res) => {
-			if(res.status === 200) {
-				return res.json();
-			}
+		.then(async (res) => {
+			return { data: await res.json(), status: res.status };
 		})
 		.then((resData) => {
-			setState({
-				token: resData.token,
-				userId: resData.userId,
-			});
-			localStorage.setItem('token', resData.token);
-			localStorage.setItem('userId', resData.userId);
-			localStorage.setItem('username', resData.username);
-			navigate(redirectUrl);
+			if (resData.status !== 200) {
+				resData.data.title = 'Error Logging In';
+				resData.data.type = 'error';
+				setState((prevState) => {
+					return {
+						...prevState,
+						error: resData.data,
+					};
+				});
+			} else {
+				setState({
+					token: resData.token,
+					userId: resData.userId,
+				});
+				localStorage.setItem('token', resData.token);
+				localStorage.setItem('userId', resData.userId);
+				localStorage.setItem('username', resData.username);
+				navigate(redirectUrl);
+			}
 		})
 		.catch((err) => {
 			console.log(err);
 		})
+	}
+
+	const removeErrorHandler = () => {
+		console.log("remove notification state");
+		setState((prevState) => {
+			return {
+				...prevState,
+				error: null,
+			}
+		});
 	}
 
 	return (
@@ -58,7 +77,13 @@ const App = () => {
 			
 			<Routes>
 				<Route path="/" element={<Dashboard />} />
-				<Route path="/login" element={<Login onLogin={loginHandler.bind(this)} />} />
+				<Route path="/login" element={
+					<Login 
+						onLogin={loginHandler.bind(this)} 
+						error={state.error}
+						removeNotification={removeErrorHandler}
+					/>
+				}/>
 				<Route path="/video/:videoId" element={<Video />}/>
 				{ state.token && <Route path="/theatre-room/:roomId/video/:videoId" element={<TheatreRoom />}/> }
 			</Routes>

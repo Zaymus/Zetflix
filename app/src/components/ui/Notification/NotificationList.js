@@ -41,16 +41,27 @@ class NotificationList extends Component {
   }
 
   componentDidUpdate() {
-    if(!this.state.socket) {
-      this.setState({socket: this.props.socket})
+    if (this.props.socket) {
+      if(!this.state.socket) {
+        this.setState({socket: this.props.socket})
+      }
+  
+      this.state.socket?.on('announcement', (notification) => {
+        this.addNotification({
+          ...notification,
+          type: notification.type ? notification.type : 'announcement'
+        });
+      });
     }
 
-    this.state.socket?.on('announcement', (notification) => {
+    if (this.props.notification) {
+      console.log(this.props.notification);
       this.addNotification({
-        ...notification,
-        type: notification.type ? notification.type : 'announcement'
+        ...this.props.notification,
+          type: this.props.notification.type ? this.props.notification.type : 'announcement'
       });
-    })
+      this.props.removeNotification();
+    }
   }
 
   render() {
