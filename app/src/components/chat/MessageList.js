@@ -8,18 +8,26 @@ const testMessages = [
 
 const MessageList = (props) => {
   const [messages, setMessages] = useState(testMessages);
-  const socket = props.socket;
+  const [isSocketDefined, setIsSocketDefined] = useState(false);
 
   useEffect(() => {
-    socket?.on('chatMessage', (message) => {
-      setMessages((prevState) => {
-        return [
-          ...prevState,
-          message,
-        ]
+    if(!isSocketDefined && props.socket) {
+      props.socket?.on('chatMessage', (message) => {
+        setMessages((prevState) => {
+          return [
+            ...prevState,
+            message,
+          ]
+        });
       });
-    });
-  }, [socket]);
+    }
+  }, [props.socket, isSocketDefined]);
+
+  useEffect(() => {
+    if(props.socket) {
+      setIsSocketDefined(true);
+    }
+  }, [props.socket])
 
   const scrollToNewMessage = () => {
     const messageList = document.querySelector(".messagelist--container");

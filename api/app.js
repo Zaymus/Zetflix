@@ -75,10 +75,11 @@ mongoose
 				const user = await Users.findById(data.userId);
 
 				client.leave(data.roomId);
-				io.in(data.roomId).emit('announcement', {
+				io.to(data.roomId).emit('announcement', {
 					title: "User Left",
 					message: `${user.username}, has left the theatre room.`
 				});
+				console.log("client disconnected");
 			});
 
 			client.on('room.chat', async (data) => {

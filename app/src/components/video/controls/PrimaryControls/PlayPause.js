@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const PlayPause = (props) => {
   const [videoState, setVideoState] = useState("paused");
+	const [isSocketDefined, setIsSocketDefined] = useState("");
 
 	const playPauseClickHandler = () => {
   	if (videoState === "paused") {
@@ -24,18 +25,26 @@ const PlayPause = (props) => {
 	}
 
 	useEffect(() => {
-		props.socket?.on("playVideo", (time) => {
- 			props.videoRef.current.currentTime = parseFloat(time);
-			props.videoRef.current.play();
-			setVideoState("playing");
-		});
+		if(!isSocketDefined && props.socket) {
+			props.socket?.on("playVideo", (time) => {
+				props.videoRef.current.currentTime = parseFloat(time);
+				props.videoRef.current.play();
+				setVideoState("playing");
+			});
 
-		props.socket?.on("pauseVideo", (time) => {
-			props.videoRef.current.currentTime = parseFloat(time);
-			props.videoRef.current.pause();
-			setVideoState("paused");
-		});
-	}, [props]);
+			props.socket?.on("pauseVideo", (time) => {
+				props.videoRef.current.currentTime = parseFloat(time);
+				props.videoRef.current.pause();
+				setVideoState("paused");
+			});
+		}
+	}, [props.socket, props.videoRef, isSocketDefined]);
+
+	useEffect(() => {
+    if(props.socket) {
+      setIsSocketDefined(true);
+    }
+  }, [props.socket])
 
   return (
     <i id="playPause" className={'fa-solid controls--icon ' + (videoState === "paused" ? 'fa-play' : 'fa-pause')} onClick={playPauseClickHandler}></i>

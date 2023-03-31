@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Video from '../components/video/video/Video';
 import './Dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const [videos, setVideos] = useState(null);
 
   useEffect(() => {
@@ -26,9 +25,7 @@ const Dashboard = () => {
     <div className="browse--container">
       {videos?.map(video => {
         return (
-          <Link to={`/video/${video._id}`} key={video._id}>
-            <Video data={video} />
-          </Link>
+          <Video data={video} state={props.state} key={video._id} />
         );
       })}
     </div>

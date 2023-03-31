@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import {Route, Routes, Link, useLocation, useNavigate} from 'react-router-dom';
+import { Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
 import NavBar from "./components/ui/NavBar";
 import Video from "./pages/Video";
 import TheatreRoom from "./pages/TheatreRoom";
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Dashboard from './pages/Dashboard';
+import CreateTheatreRoom from './pages/CreateTheatreRoom';
 import NotificationList from './components/ui/Notification/NotificationList';
 
 const App = () => {
 
-	const [state, setState] = useState({token: null, userId: null, notification: null});
+	const [state, setState] = useState({
+		token: null,
+		userId: null,
+		notification: null,
+		socket: null,
+	});
+
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -37,21 +44,20 @@ const App = () => {
 			if (resData.status !== 200) {
 				resData.data.title = 'Error Logging In';
 				resData.data.type = 'error';
-				setState((prevState) => {
-					return {
-						...prevState,
-						notification: resData.data,
-					};
-				});
+				notificationHandler(resData.data);
 			} else {
-				setState({
-					token: resData.data.token,
-					userId: resData.data.userId,
-					notification: {title: "Login Successful!", type: "success", message: `${resData.data.username}, you have been successfully logged in!`}
-				});
 				localStorage.setItem('token', resData.data.token);
 				localStorage.setItem('userId', resData.data.userId);
 				localStorage.setItem('username', resData.data.username);
+				setState((prevState) => {
+					return {
+						...prevState,
+						token: resData.data.token,
+						userId: resData.data.userId,
+						username: resData.data.username,
+					}
+				});
+				notificationHandler({title: "Login Successful!", type: "success", message: `${resData.data.username}, you have been successfully logged in!`});
 				navigate(redirectUrl);
 			}
 		})
@@ -61,22 +67,39 @@ const App = () => {
 	}
 
 	const removeNotificationHandler = () => {
-		setState((prevState) => {
-			return {
-				...prevState,
-				notification: null,
-			}
-		});
+		notificationHandler(null);
 	}
 
 	const logoutHandler = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("userId");
 		localStorage.removeItem("username");
-		setState({
-			token: null,
-			userId: null,
-			notification: {title: "Logout Successful!", type: "success", message: "You have been Successfully logged out."}
+		setState((prevState) => {
+			return {
+				...prevState,
+				token: null,
+				userId: null,
+				username: null,
+			}
+		});
+		notificationHandler({title: "Logout Successful!", type: "success", message: "You have been Successfully logged out."});
+	}
+
+	const notificationHandler = (notification) => {
+		setState((prevState) => {
+			return {
+				...prevState,
+				notification: notification,
+			}
+		});
+	}
+
+	const setSocketHandler = (socket) => {
+		setState((prevState) => {
+			return {
+				...prevState,
+				socket: socket,
+			}
 		});
 	}
 
@@ -89,7 +112,7 @@ const App = () => {
 				username: localStorage.getItem("username"),
 			}
 		}));
-	}, [setState]);
+	}, []);
 
 	return (
 		<div>
@@ -98,14 +121,15 @@ const App = () => {
 				{state.token && <Link to="/logout">Logout</Link>}
 			</NavBar>
 
-			<NotificationList notification={state.notification} removeNotification={removeNotificationHandler}/>
+			<NotificationList notification={state.notification} removeNotification={removeNotificationHandler} socket={state.socket} />
 
 			<Routes>
-				<Route path="/" element={<Dashboard />} />
+				<Route path="/" element={<Dashboard state={state}/>} />
 				<Route path="/login" element={<Login onLogin={loginHandler.bind(this)} />}/>
 				<Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
 				<Route path="/video/:videoId" element={<Video />}/>
-				{ state.token && <Route path="/theatre-room/:roomId/video/:videoId" element={<TheatreRoom />}/> }
+				{ state.token && <Route path='/theatre-room' element={<CreateTheatreRoom state={state} onNotification={notificationHandler} />}></Route>}
+				{ state.token && <Route path="/theatre-room/:roomId/video/:videoId" element={<TheatreRoom onNotification={notificationHandler} setSocket={setSocketHandler} socket={state.socket}/>}/> }
 			</Routes>
 		</div>
 	)

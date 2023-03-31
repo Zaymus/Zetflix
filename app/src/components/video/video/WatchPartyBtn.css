@@ -1,0 +1,32 @@
+.btn--container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 50;
+  transition: all 250ms ease-in-out;
+}
+
+.btn--wrapper {
+  width: 2.8em;
+  height: 2.8em;
+  border-radius: 50%;
+  background-color: var(--clr-main-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 250ms ease-in-out;
+}
+
+.btn--wrapper:hover {
+  background-color: var(--clr-main-accent);
+}
+
+.watchparty--btn {
+  font-size: 1.75em;
+  color: var(--clr-main-accent);
+  transition: all 250ms ease-in-out;
+}
+
+.watchparty--btn:hover {
+  color: var(--clr-main-bg);
+}
