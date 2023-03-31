@@ -6,6 +6,7 @@
   padding: 5px 20px;
   border-bottom: 3px solid var(--clr-main-accent);
   height: 7vh;
+  user-select: none;
 }
 
 .navbar--container img {
@@ -20,10 +21,9 @@
 .navbar--container .links {
   display: flex;
   width: 45%;
-  /* font-size: 2rem; */
   font-size: clamp(1rem, 2.5vw, 2rem);
-  justify-content: space-evenly;
-  margin-bottom: 5px;
+  justify-content: flex-end;
+  margin: 0px 3vw 5px 0px;
 }
 
 .navbar--container .links a {

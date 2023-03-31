@@ -2,18 +2,18 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const { s3, S3_FILE_TYPE, env, generateRandomString } = require('../util/constants');
 
-const avatarFileStorage = multerS3({
+const thumbnailFileStorage = multerS3({
 	s3: s3,
 	bucket: env.S3_BUCKET_NAME,
 	key: function (req, file, cb) {
-		const fileName = S3_FILE_TYPE.AVATAR + Date.now().toString() + "-" + generateRandomString();
+		const fileName = S3_FILE_TYPE.THUMBNAIL + Date.now().toString() + "-" + generateRandomString();
 		const fileExt = "." + file.originalname.split('.').pop();
-		req.newAvatarKey = fileName + fileExt;
+		req.thumbnailKey = fileName + fileExt;
 		cb(null, fileName + fileExt);
 	}
 });
 
-const avatarFileFilter = (req, file, cb) => {
+const thumbnailFileFilter = (req, file, cb) => {
 	if (
 		file.mimetype === "image/png" ||
 		file.mimetype === "image/jpg" ||
@@ -25,6 +25,6 @@ const avatarFileFilter = (req, file, cb) => {
 	}
 };
 
-const avatarUpload = multer({ storage: avatarFileStorage, fileFilter: avatarFileFilter }).single("avatar");
+const thumbnailUpload = multer({ storage: thumbnailFileStorage, fileFilter: thumbnailFileFilter }).single("thumbnail");
 
-module.exports = avatarUpload;
+module.exports = thumbnailUpload;

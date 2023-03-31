@@ -17,7 +17,6 @@ const PlaybackForm = (props) => {
 
   useEffect(() => {
 		props.socket?.on("videoSpeed", (speed) => {
-      console.log(speed);
  			props.videoRef.current.playbackRate = speed;
       props.setSelected(speed);
 		});

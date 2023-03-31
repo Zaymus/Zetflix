@@ -21,6 +21,7 @@ const S3_FILE_TYPE = {
 	AVATAR: "avatars/",
 	CONTENT: "content/",
 	CAPTION: "caption/",
+	THUMBNAIL: "thumbnails/",
 }
 
 const s3 = new AWS.S3({
