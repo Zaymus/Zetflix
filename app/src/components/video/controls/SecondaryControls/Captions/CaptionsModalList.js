@@ -16,7 +16,7 @@ const CaptionsModalList = (props) => {
     const caption = props.videoRef.current.addTextTrack("subtitles", track.getAttribute("data-language"), "en");
     caption.mode = "showing";
 
-    fetch(`http://localhost:9000/api/caption/?captionKey=${track.getAttribute("data-key")}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/caption/?captionKey=${track.getAttribute("data-key")}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

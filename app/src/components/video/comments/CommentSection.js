@@ -14,7 +14,7 @@ const CommentSection = (props) => {
       return {
         data: [
           comment,
-          ...prevState.data
+          ...prevState
         ],
         status: newComment.status
       }
@@ -22,7 +22,7 @@ const CommentSection = (props) => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:9000/api/comment/${props.videoId}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/comment/${props.videoId}`)
     .then(async result => {
       const data = await result.json();
       return {data: data, status: result.status};

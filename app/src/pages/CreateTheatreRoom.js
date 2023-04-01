@@ -6,7 +6,7 @@ const CreateTheatreRoom = (props) => {
   const location = useLocation();
 
   useEffect(() => {
-    fetch("http://localhost:9000/api/theatre/create", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/theatre/create`, {
       method: "POST",
       headers: {
         'authorization': `bearer ${props.state.token}`,

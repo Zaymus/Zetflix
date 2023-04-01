@@ -13,7 +13,7 @@ const TheatreRoom = (props) => {
   
   useEffect(() => {
     if(!state.captions) {
-      fetch(`http://localhost:9000/api/caption/${videoId}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/api/caption/${videoId}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -41,7 +41,7 @@ const TheatreRoom = (props) => {
 
   useEffect(() => {
     if(!socket) {
-      const newSocket = openSocket("http://localhost:9000", {transports:["websocket"]});
+      const newSocket = openSocket(`${process.env.REACT_APP_API_URL}`, {transports:["websocket"]});
       newSocket.emit('room.join', {roomId: roomId, userId: localStorage.getItem('userId')});
       setSocket(newSocket);
     }

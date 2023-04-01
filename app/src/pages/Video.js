@@ -8,7 +8,7 @@ const Video = (props) => {
   const [captions, setCaptions] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:9000/api/caption/${videoId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/caption/${videoId}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

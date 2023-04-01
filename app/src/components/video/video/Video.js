@@ -15,7 +15,7 @@ const Video = (props) => {
 
   return (
     <div className="content--container" onClick={clickHandler}>
-      <img className="thumbnail" src={`http://localhost:9000/api/video/thumbnail/${props.data._id}`} alt="video thumbnail" />
+      <img className="thumbnail" src={`${process.env.REACT_APP_API_URL}/api/video/thumbnail/${props.data._id}`} alt="video thumbnail" />
       <div className="videoInfo--container">
         <h3 className="videoTitle">{props.data.title}</h3>
         {props.state.token && <WatchPartyBtn videoId={props.data._id}/>}

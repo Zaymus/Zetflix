@@ -6,7 +6,7 @@ const Dashboard = (props) => {
   const [videos, setVideos] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:9000/api/video/all")
+    fetch(`${process.env.REACT_APP_API_URL}/api/video/all`)
     .then(async res => {
       const json = await res.json();
       return {videos: json, status: res.status}

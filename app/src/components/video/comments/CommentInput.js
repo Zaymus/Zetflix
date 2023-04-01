@@ -11,7 +11,7 @@ const CommentInput = (props) => {
     }, 250);
     const userComment = document.querySelector("#messageBox");
     if (userComment.textContent.length > 0) {
-      fetch(`http://localhost:9000/api/comment/${props.videoId}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/api/comment/${props.videoId}`, {
         method: "POST",
         headers: {
           "Authorization": `bearer ${localStorage.getItem("token")}`,

@@ -10,7 +10,7 @@ const Comment = (props) => {
 
     if (state === "true") {
       counter.innerHTML = parseInt(counter.innerHTML) + 1;
-      fetch(`http://localhost:9000/api/comment/rate/${props.data._id}?type=like`, {
+      fetch(`${process.env.REACT_APP_API_URL}/api/comment/rate/${props.data._id}?type=like`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ const Comment = (props) => {
 
     if (state === "true") {
       counter.innerHTML = parseInt(counter.innerHTML) + 1;
-      fetch(`http://localhost:9000/api/comment/rate/${props.data._id}?type=dislike`, {
+      fetch(`${process.env.REACT_APP_API_URL}/api/comment/rate/${props.data._id}?type=dislike`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const Comment = (props) => {
   return (
     <div className="comment--container">
       <div className="img--wrapper">
-        <img alt="user avatar" src={`http://localhost:9000/api/users/${props.data.author.userId}/avatar`}/>
+        <img alt="user avatar" src={`${process.env.REACT_APP_API_URL}/api/users/${props.data.author.userId}/avatar`}/>
       </div>
       <h1 className='comment--author'>{props.data.author.username}</h1>
       <p className="comment--message">{props.data.message}</p>
