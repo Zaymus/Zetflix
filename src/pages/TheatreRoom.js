@@ -41,6 +41,7 @@ const TheatreRoom = (props) => {
 
   useEffect(() => {
     if(!socket) {
+      console.log(process.env.REACT_APP_API_URL);
       const newSocket = openSocket(`${process.env.REACT_APP_API_URL}`, {transports:["websocket"]});
       newSocket.emit('room.join', {roomId: roomId, userId: localStorage.getItem('userId')});
       setSocket(newSocket);
