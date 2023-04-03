@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cors = require('cors');
+const path = require('path');
 const { env } = require('./util/constants');
 
 const app = express();
@@ -34,6 +34,10 @@ apiRouter.use('/auth', authRouter);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/api', apiRouter);
+app.use(express.static(path.join(__dirname, "../..", 'build')));
+app.get('/*', (req, res, next) => {
+	res.sendFile(path.join(__dirname, "../..", 'build', 'index.html'));
+})
 
 app.use((error, req, res, next) => {
 	const status = error.statusCode || 500;
