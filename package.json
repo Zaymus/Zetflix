@@ -66,7 +66,8 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"start:dev": "concurrently \"cd src/api && nodemon app.js\" \"npm start\""
+		"start:dev": "concurrently \"cd src/api && nodemon app.js\" \"npm start\"",
+		"start:prd": "cd src/api && node app.js"
 	},
 	"eslintConfig": {
 		"extends": [
