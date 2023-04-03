@@ -1,5 +1,5 @@
 const dotenv = require("dotenv").config({
-	path:__dirname+'/./../../.env'
+	path:__dirname+'./../../../.env'
 });
 const env = process.env;
 
@@ -13,7 +13,7 @@ const userValidation = {
 		new RegExp(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/),
 };
 
-SERVER_STATUS = {
+const SERVER_STATUS = {
 	UP: "up",
 };
 
