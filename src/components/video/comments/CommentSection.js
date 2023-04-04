@@ -6,7 +6,7 @@ import './CommentSection.css';
 
 const CommentSection = (props) => {
   const location = useLocation();
-  const [comments, setComments] = useState(null);
+  const [comments, setComments] = useState({data: [], status: null});
 
   const newCommentHandler = (newComment) => {
     const comment = newComment.comment;
@@ -14,7 +14,7 @@ const CommentSection = (props) => {
       return {
         data: [
           comment,
-          ...prevState
+          ...prevState.data
         ],
         status: newComment.status
       }
@@ -28,7 +28,9 @@ const CommentSection = (props) => {
       return {data: data, status: result.status};
     })
     .then(jsonData => {
-      setComments(jsonData);
+      if(jsonData.status === 200) {
+        setComments(jsonData);
+      }
     })
     .catch(err => {
       console.log(err);

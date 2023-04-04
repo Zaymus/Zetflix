@@ -24,7 +24,7 @@ const CommentList = (props) => {
   return (
     <div className='commentList--container' data-state="loading" >
       {!props.commentData && <Spinner />}
-      {comments.length === 0 && <span>{props.commentData?.message}</span>}
+      {comments.length === 0 && <span>{"No Comments found."}</span>}
       {comments.map(comment => {
         return <Comment data={comment} key={comment._id}/>
       })}
