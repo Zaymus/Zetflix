@@ -3,6 +3,15 @@ import React, { useState, useEffect } from 'react';
 const PlayPause = (props) => {
   const [videoState, setVideoState] = useState("paused");
 	const [isSocketDefined, setIsSocketDefined] = useState("");
+	const [videoCompleted, setVideoCompleted] = useState(false);
+
+	if (props.isComplete && videoState !== "paused") {
+		setVideoState("paused");
+		setVideoCompleted(true);
+	} else if(!props.isComplete && videoCompleted) {
+		setVideoState("playing");
+		setVideoCompleted(false);
+	}
 
 	const playPauseClickHandler = () => {
   	if (videoState === "paused") {
