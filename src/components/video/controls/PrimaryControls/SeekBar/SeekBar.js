@@ -15,6 +15,8 @@ const SeekBar = (props) => {
   useEffect(() => {
 		props.socket?.on("seekVideo", (time) => {
  			props.videoRef.current.currentTime = parseFloat(time);
+       props.videoRef.current.pause();
+       props.videoRef.current.play();
 		});
 	}, [props]);
 
