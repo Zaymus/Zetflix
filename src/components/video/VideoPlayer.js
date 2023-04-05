@@ -86,7 +86,7 @@ const VideoPlayer = (props) => {
 				onTimeUpdate={timeUpdateHandler}
 			>
 				<source src={`${process.env.REACT_APP_API_URL}/api/video/${props.videoId}`} type="video/mp4" />
-				{props.captions?.length && props.captions.map((caption) => {
+				{props.captions?.data?.length && props.captions?.data?.map((caption) => {
 					return <track kind="subtitles" label={caption.label} data-key={caption.captionKey} key={caption._id}/>
 				})}
 			</video>

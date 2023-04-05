@@ -188,10 +188,6 @@ exports.startRoom = async (req, res, next) => {
       error.statusCode = 404;
       throw error;
     }
-
-    // const result = await axios.get(`${env.BASE_URL}/api/video/${room.videoId}`);
-
-    console.log(result);
     
   } catch (err) {
     if(!err.statusCode) {

@@ -5,7 +5,7 @@ import CommentSection from '../components/video/comments/CommentSection';
 
 const Video = (props) => {
   const { videoId } = useParams();
-  const [captions, setCaptions] = useState("");
+  const [captions, setCaptions] = useState([]);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/api/caption/${videoId}`, {
@@ -14,11 +14,15 @@ const Video = (props) => {
         'Accept': 'application/json'
       }
     })
-    .then(response => {
-      return response.json();
+    .then(async response => {
+      return {data: await response.json(), status: response.status};
     })
     .then(jsonData => {
-      setCaptions(jsonData);
+      if(jsonData.status === 200) {
+        setCaptions(jsonData);
+      } else {
+        setCaptions([]);
+      }
     })
     .catch(err => {
       console.log(err);
