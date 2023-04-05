@@ -156,7 +156,7 @@ exports.deleteVideo = async (req, res, next) => {
       doc.save();
       res.status(500).json({message: "Unable to delete video, please try again."})
     } catch (error) {
-      if (error.statusCode == 404) {
+      if (error.statusCode === 404) {
         res.status(200).json({message: "Video has been successfully deleted."});
       } else {
         throw error;
@@ -172,10 +172,10 @@ exports.deleteVideo = async (req, res, next) => {
 
 exports.getVideo = async (req, res, next) => {
   const videoId = req.params.videoId;
-
+  console.log(videoId);
   try {
     const video = await Video.findById(videoId);
-
+    console.log(video);
     if (!video) {
       const error = new Error('Could not find video.');
       error.statusCode = 404;

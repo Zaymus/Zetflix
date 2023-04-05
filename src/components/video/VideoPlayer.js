@@ -52,7 +52,7 @@ const VideoPlayer = (props) => {
 	}
 
 	const getVideoData = () => {
-		fetch(`${process.env.REACT_APP_API_URL}/api/video/data/63fd57ad00f5e1f9186f4daf`, {
+		fetch(`${process.env.REACT_APP_API_URL}/api/video/data/${props.videoId}`, {
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json'
@@ -71,6 +71,7 @@ const VideoPlayer = (props) => {
 
 	React.useEffect(() => {
 		handleResize();
+		window.addEventListener("load", handleResize, false);
 		window.addEventListener("resize", handleResize, false);
 		getVideoData();
 	}, []);
