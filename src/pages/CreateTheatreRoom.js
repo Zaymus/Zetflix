@@ -6,7 +6,7 @@ const CreateTheatreRoom = (props) => {
   const location = useLocation();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/theatre/create`, {
+    fetch(`https://octopus-app-yhikj.ondigitalocean.app/api/theatre/create`, {
       method: "POST",
       headers: {
         'authorization': `bearer ${props.state.token}`,
